@@ -44,6 +44,34 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.1\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.DependencyCollector, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.0.0\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.PerfCounterCollector, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.0.0\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.0.0\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.Web, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.2.0.0\lib\net45\Microsoft.AI.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.WindowsServer, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.0.0\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.0.0\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -52,6 +80,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -170,33 +200,265 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003051023593_Initial.cs" />
+    <Compile Include="Migrations\202003051023593_Initial.Designer.cs">
+      <DependentUpon>202003051023593_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003051231479_FirstNameAndLastNameAndAgeProperties.cs" />
+    <Compile Include="Migrations\202003051231479_FirstNameAndLastNameAndAgeProperties.Designer.cs">
+      <DependentUpon>202003051231479_FirstNameAndLastNameAndAgeProperties.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003071108379_IDTOString.cs" />
+    <Compile Include="Migrations\202003071108379_IDTOString.Designer.cs">
+      <DependentUpon>202003071108379_IDTOString.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003072038552_AddRolePropertyToUser.cs" />
+    <Compile Include="Migrations\202003072038552_AddRolePropertyToUser.Designer.cs">
+      <DependentUpon>202003072038552_AddRolePropertyToUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003072142501_EditRoleTypeInUser.cs" />
+    <Compile Include="Migrations\202003072142501_EditRoleTypeInUser.Designer.cs">
+      <DependentUpon>202003072142501_EditRoleTypeInUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003072150260_AddRoleNameColumnInUser.cs" />
+    <Compile Include="Migrations\202003072150260_AddRoleNameColumnInUser.Designer.cs">
+      <DependentUpon>202003072150260_AddRoleNameColumnInUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003072215208_AddRoleIdColumnInUser.cs" />
+    <Compile Include="Migrations\202003072215208_AddRoleIdColumnInUser.Designer.cs">
+      <DependentUpon>202003072215208_AddRoleIdColumnInUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003072227526_RemoveRoleIdColumnInUser.cs" />
+    <Compile Include="Migrations\202003072227526_RemoveRoleIdColumnInUser.Designer.cs">
+      <DependentUpon>202003072227526_RemoveRoleIdColumnInUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003082102283_ChangeRoleIdFK.cs" />
+    <Compile Include="Migrations\202003082102283_ChangeRoleIdFK.Designer.cs">
+      <DependentUpon>202003082102283_ChangeRoleIdFK.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003082116551_ChangeRoleNameFK.cs" />
+    <Compile Include="Migrations\202003082116551_ChangeRoleNameFK.Designer.cs">
+      <DependentUpon>202003082116551_ChangeRoleNameFK.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003082120561_ChangeRoleIdFK1.cs" />
+    <Compile Include="Migrations\202003082120561_ChangeRoleIdFK1.Designer.cs">
+      <DependentUpon>202003082120561_ChangeRoleIdFK1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003100722387_ChangeUserProperties.cs" />
+    <Compile Include="Migrations\202003100722387_ChangeUserProperties.Designer.cs">
+      <DependentUpon>202003100722387_ChangeUserProperties.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AdminViewModel.cs" />
+    <Compile Include="Models\Brand.cs" />
+    <Compile Include="Models\BrandsCategoriesViewModel.cs" />
+    <Compile Include="Models\Category.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\Request.cs" />
+    <Compile Include="Models\UserRoleViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\CSS\blog_responsive.css" />
+    <Content Include="Content\CSS\blog_single_responsive.css" />
+    <Content Include="Content\CSS\blog_single_styles.css" />
+    <Content Include="Content\CSS\blog_styles.css" />
+    <Content Include="Content\CSS\BootStrap\bootstrap.min.css" />
+    <Content Include="Content\CSS\BootStrap\bootstrap.min.js" />
+    <Content Include="Content\CSS\BootStrap\popper.js" />
+    <Content Include="Content\CSS\cart_responsive.css" />
+    <Content Include="Content\CSS\cart_styles.css" />
+    <Content Include="Content\CSS\contact_responsive.css" />
+    <Content Include="Content\CSS\contact_styles.css" />
+    <Content Include="Content\CSS\main_styles.css" />
+    <Content Include="Content\CSS\product_responsive.css" />
+    <Content Include="Content\CSS\product_styles.css" />
+    <Content Include="Content\CSS\regular_responsive.css" />
+    <Content Include="Content\CSS\regular_styles.css" />
+    <Content Include="Content\CSS\responsive.css" />
+    <Content Include="Content\CSS\shop_responsive.css" />
+    <Content Include="Content\CSS\shop_styles.css" />
+    <Content Include="Content\Images\adv_1.png" />
+    <Content Include="Content\Images\adv_2.png" />
+    <Content Include="Content\Images\adv_3.png" />
+    <Content Include="Content\Images\banner_2_background.jpg" />
+    <Content Include="Content\Images\banner_2_product.png" />
+    <Content Include="Content\Images\banner_background.jpg" />
+    <Content Include="Content\Images\banner_product.png" />
+    <Content Include="Content\Images\best_1.png" />
+    <Content Include="Content\Images\best_2.png" />
+    <Content Include="Content\Images\best_3.png" />
+    <Content Include="Content\Images\best_4.png" />
+    <Content Include="Content\Images\best_5.png" />
+    <Content Include="Content\Images\best_6.png" />
+    <Content Include="Content\Images\blog_1.jpg" />
+    <Content Include="Content\Images\blog_2.jpg" />
+    <Content Include="Content\Images\blog_3.jpg" />
+    <Content Include="Content\Images\blog_4.jpg" />
+    <Content Include="Content\Images\blog_5.jpg" />
+    <Content Include="Content\Images\blog_6.jpg" />
+    <Content Include="Content\Images\blog_7.jpg" />
+    <Content Include="Content\Images\blog_8.jpg" />
+    <Content Include="Content\Images\blog_9.jpg" />
+    <Content Include="Content\Images\blog_single_background.jpg" />
+    <Content Include="Content\Images\brands_1.jpg" />
+    <Content Include="Content\Images\brands_2.jpg" />
+    <Content Include="Content\Images\brands_3.jpg" />
+    <Content Include="Content\Images\brands_4.jpg" />
+    <Content Include="Content\Images\brands_5.jpg" />
+    <Content Include="Content\Images\brands_6.jpg" />
+    <Content Include="Content\Images\brands_7.jpg" />
+    <Content Include="Content\Images\brands_8.jpg" />
+    <Content Include="Content\Images\cart.png" />
+    <Content Include="Content\Images\char_1.png" />
+    <Content Include="Content\Images\char_2.png" />
+    <Content Include="Content\Images\char_3.png" />
+    <Content Include="Content\Images\char_4.png" />
+    <Content Include="Content\Images\contact_1.png" />
+    <Content Include="Content\Images\contact_2.png" />
+    <Content Include="Content\Images\contact_3.png" />
+    <Content Include="Content\Images\deals.png" />
+    <Content Include="Content\Images\featured_1.png" />
+    <Content Include="Content\Images\featured_2.png" />
+    <Content Include="Content\Images\featured_3.png" />
+    <Content Include="Content\Images\featured_4.png" />
+    <Content Include="Content\Images\featured_5.png" />
+    <Content Include="Content\Images\featured_6.png" />
+    <Content Include="Content\Images\featured_7.png" />
+    <Content Include="Content\Images\featured_8.png" />
+    <Content Include="Content\Images\heart.png" />
+    <Content Include="Content\Images\logos_1.png" />
+    <Content Include="Content\Images\logos_2.png" />
+    <Content Include="Content\Images\logos_3.png" />
+    <Content Include="Content\Images\logos_4.png" />
+    <Content Include="Content\Images\mail.png" />
+    <Content Include="Content\Images\mail_white.png" />
+    <Content Include="Content\Images\marker.png" />
+    <Content Include="Content\Images\new_1.jpg" />
+    <Content Include="Content\Images\new_10.jpg" />
+    <Content Include="Content\Images\new_2.jpg" />
+    <Content Include="Content\Images\new_3.jpg" />
+    <Content Include="Content\Images\new_4.jpg" />
+    <Content Include="Content\Images\new_5.jpg" />
+    <Content Include="Content\Images\new_6.jpg" />
+    <Content Include="Content\Images\new_7.jpg" />
+    <Content Include="Content\Images\new_8.jpg" />
+    <Content Include="Content\Images\new_9.jpg" />
+    <Content Include="Content\Images\new_single.png" />
+    <Content Include="Content\Images\phone.png" />
+    <Content Include="Content\Images\phone_white.png" />
+    <Content Include="Content\Images\popular_1.png" />
+    <Content Include="Content\Images\popular_2.png" />
+    <Content Include="Content\Images\popular_3.png" />
+    <Content Include="Content\Images\popular_4.png" />
+    <Content Include="Content\Images\popular_5.png" />
+    <Content Include="Content\Images\quote.png" />
+    <Content Include="Content\Images\review_1.jpg" />
+    <Content Include="Content\Images\review_2.jpg" />
+    <Content Include="Content\Images\review_3.jpg" />
+    <Content Include="Content\Images\search.png" />
+    <Content Include="Content\Images\send.png" />
+    <Content Include="Content\Images\shopping_cart.jpg" />
+    <Content Include="Content\Images\shop_1.jpg" />
+    <Content Include="Content\Images\shop_2.jpg" />
+    <Content Include="Content\Images\shop_background.jpg" />
+    <Content Include="Content\Images\single_1.jpg" />
+    <Content Include="Content\Images\single_2.jpg" />
+    <Content Include="Content\Images\single_3.jpg" />
+    <Content Include="Content\Images\single_4.jpg" />
+    <Content Include="Content\Images\trends_1.jpg" />
+    <Content Include="Content\Images\trends_2.jpg" />
+    <Content Include="Content\Images\trends_3.jpg" />
+    <Content Include="Content\Images\trends_background.jpg" />
+    <Content Include="Content\Images\user.png" />
+    <Content Include="Content\Images\user.svg" />
+    <Content Include="Content\Images\view_1.jpg" />
+    <Content Include="Content\Images\view_2.jpg" />
+    <Content Include="Content\Images\view_3.jpg" />
+    <Content Include="Content\Images\view_4.jpg" />
+    <Content Include="Content\Images\view_5.jpg" />
+    <Content Include="Content\Images\view_6.jpg" />
+    <Content Include="Content\plugins\easing\easing.js" />
+    <Content Include="Content\plugins\fontawesome-free-5.0.1\css\fontawesome-all.css" />
+    <Content Include="Content\plugins\fontawesome-free-5.0.1\webfonts\fa-brands-400.svg" />
+    <Content Include="Content\plugins\fontawesome-free-5.0.1\webfonts\fa-regular-400.svg" />
+    <Content Include="Content\plugins\fontawesome-free-5.0.1\webfonts\fa-solid-900.svg" />
+    <Content Include="Content\plugins\greensock\animation.gsap.min.js" />
+    <Content Include="Content\plugins\greensock\ScrollToPlugin.min.js" />
+    <Content Include="Content\plugins\greensock\TimelineMax.min.js" />
+    <Content Include="Content\plugins\greensock\TweenMax.min.js" />
+    <Content Include="Content\plugins\Isotope\isotope.pkgd.min.js" />
+    <Content Include="Content\plugins\jquery-ui-1.12.1.custom\jquery-ui.css" />
+    <Content Include="Content\plugins\jquery-ui-1.12.1.custom\jquery-ui.js" />
+    <Content Include="Content\plugins\OwlCarousel2-2.2.1\ajax-loader.gif" />
+    <Content Include="Content\plugins\OwlCarousel2-2.2.1\animate.css" />
+    <Content Include="Content\plugins\OwlCarousel2-2.2.1\owl.carousel.css" />
+    <Content Include="Content\plugins\OwlCarousel2-2.2.1\owl.carousel.js" />
+    <Content Include="Content\plugins\OwlCarousel2-2.2.1\owl.theme.default.css" />
+    <Content Include="Content\plugins\OwlCarousel2-2.2.1\owl.video.play.png" />
+    <Content Include="Content\plugins\parallax-js-master\parallax.min.js" />
+    <Content Include="Content\plugins\scrollmagic\ScrollMagic.min.js" />
+    <Content Include="Content\plugins\slick-1.8.0\ajax-loader.gif" />
+    <Content Include="Content\plugins\slick-1.8.0\fonts\slick.svg" />
+    <Content Include="Content\plugins\slick-1.8.0\index.html" />
+    <Content Include="Content\plugins\slick-1.8.0\slick.css" />
+    <Content Include="Content\plugins\slick-1.8.0\slick.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\ai.0.22.9-build00167.js" />
+    <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="ApplicationInsights.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\plugins\fontawesome-free-5.0.1\webfonts\fa-brands-400.eot" />
+    <Content Include="Content\plugins\fontawesome-free-5.0.1\webfonts\fa-brands-400.ttf" />
+    <Content Include="Content\plugins\fontawesome-free-5.0.1\webfonts\fa-brands-400.woff" />
+    <Content Include="Content\plugins\fontawesome-free-5.0.1\webfonts\fa-brands-400.woff2" />
+    <Content Include="Content\plugins\fontawesome-free-5.0.1\webfonts\fa-regular-400.eot" />
+    <Content Include="Content\plugins\fontawesome-free-5.0.1\webfonts\fa-regular-400.ttf" />
+    <Content Include="Content\plugins\fontawesome-free-5.0.1\webfonts\fa-regular-400.woff" />
+    <Content Include="Content\plugins\fontawesome-free-5.0.1\webfonts\fa-regular-400.woff2" />
+    <Content Include="Content\plugins\fontawesome-free-5.0.1\webfonts\fa-solid-900.eot" />
+    <Content Include="Content\plugins\fontawesome-free-5.0.1\webfonts\fa-solid-900.ttf" />
+    <Content Include="Content\plugins\fontawesome-free-5.0.1\webfonts\fa-solid-900.woff" />
+    <Content Include="Content\plugins\fontawesome-free-5.0.1\webfonts\fa-solid-900.woff2" />
+    <Content Include="Content\plugins\slick-1.8.0\fonts\slick.eot" />
+    <Content Include="Content\plugins\slick-1.8.0\fonts\slick.ttf" />
+    <Content Include="Content\plugins\slick-1.8.0\fonts\slick.woff" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\MyScripts\blog_custom.js" />
+    <Content Include="Scripts\MyScripts\blog_single_custom.js" />
+    <Content Include="Scripts\MyScripts\cart_custom.js" />
+    <Content Include="Scripts\MyScripts\contact_custom.js" />
+    <Content Include="Scripts\MyScripts\custom.js" />
+    <Content Include="Scripts\MyScripts\jquery-3.3.1.min.js" />
+    <Content Include="Scripts\MyScripts\product_custom.js" />
+    <Content Include="Scripts\MyScripts\regular_custom.js" />
+    <Content Include="Scripts\MyScripts\shop_custom.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -234,6 +496,22 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Product\Products_Listing.cshtml" />
+    <Content Include="Views\Product\Shop_Product_Partial.cshtml" />
+    <Content Include="Views\Product\Single_Product.cshtml" />
+    <Content Include="Views\Product\Create_Product.cshtml" />
+    <Content Include="Views\Home\SellerPage.cshtml" />
+    <Content Include="Views\Home\UserPage.cshtml" />
+    <Content Include="Views\Home\SellerRequest.cshtml" />
+    <Content Include="Views\Home\AdminPage.cshtml" />
+    <Content Include="Views\Home\EditRole.cshtml" />
+    <Content Include="Views\Home\RequestNew.cshtml" />
+    <Content Include="Views\Shared\RequestsListing.cshtml" />
+    <Content Include="Views\Home\User_Partial.cshtml" />
+    <Content Include="Views\Home\Requests_Partial.cshtml" />
+    <Content Include="Views\Shared\Category_Partial.cshtml" />
+    <Content Include="Views\Shared\Brand_Partial.cshtml" />
+    <Content Include="Views\Shared\_Layoutm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -245,6 +523,44 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202003051023593_Initial.resx">
+      <DependentUpon>202003051023593_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003051231479_FirstNameAndLastNameAndAgeProperties.resx">
+      <DependentUpon>202003051231479_FirstNameAndLastNameAndAgeProperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003071108379_IDTOString.resx">
+      <DependentUpon>202003071108379_IDTOString.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003072038552_AddRolePropertyToUser.resx">
+      <DependentUpon>202003072038552_AddRolePropertyToUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003072142501_EditRoleTypeInUser.resx">
+      <DependentUpon>202003072142501_EditRoleTypeInUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003072150260_AddRoleNameColumnInUser.resx">
+      <DependentUpon>202003072150260_AddRoleNameColumnInUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003072215208_AddRoleIdColumnInUser.resx">
+      <DependentUpon>202003072215208_AddRoleIdColumnInUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003072227526_RemoveRoleIdColumnInUser.resx">
+      <DependentUpon>202003072227526_RemoveRoleIdColumnInUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003082102283_ChangeRoleIdFK.resx">
+      <DependentUpon>202003082102283_ChangeRoleIdFK.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003082116551_ChangeRoleNameFK.resx">
+      <DependentUpon>202003082116551_ChangeRoleNameFK.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003082120561_ChangeRoleIdFK1.resx">
+      <DependentUpon>202003082120561_ChangeRoleIdFK1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003100722387_ChangeUserProperties.resx">
+      <DependentUpon>202003100722387_ChangeUserProperties.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

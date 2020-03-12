@@ -1,0 +1,22 @@
+namespace NEW_SOUQ_PROJECT.Migrations
+{
+    using System;
+    using System.Data.Entity.Migrations;
+    
+    public partial class FirstNameAndLastNameAndAgeProperties : DbMigration
+    {
+        public override void Up()
+        {
+            AddColumn("dbo.AspNetUsers", "FirstName", c => c.String(nullable: false, maxLength: 50));
+            AddColumn("dbo.AspNetUsers", "LastName", c => c.String(nullable: false, maxLength: 50));
+            AddColumn("dbo.AspNetUsers", "Age", c => c.Int(nullable: false));
+        }
+        
+        public override void Down()
+        {
+            DropColumn("dbo.AspNetUsers", "Age");
+            DropColumn("dbo.AspNetUsers", "LastName");
+            DropColumn("dbo.AspNetUsers", "FirstName");
+        }
+    }
+}

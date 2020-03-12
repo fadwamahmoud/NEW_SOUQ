@@ -1,0 +1,4 @@
+﻿@model Category
+<li><a href='@Url.Action("Products_Listing", "Product", 
+    new { id = Model.Id })'>@Model.Name <i class="fas fa-chevron-right ml-auto"></i></a></li>
+

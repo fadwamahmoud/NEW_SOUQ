@@ -1,0 +1,54 @@
+﻿@model ApplicationUser
+
+<tr>
+    <td>
+        @Html.DisplayFor(model => model.FirstName)
+    </td>
+    <td>
+        @Html.DisplayFor(model => model.LastName)
+    </td>
+    <td>
+        @Html.DisplayFor(model => model.RoleId)
+    </td>
+    <td>
+        @Html.DisplayFor(model => model.Email)
+    </td>
+
+    <td>
+        @Html.DisplayFor(model => model.UserName)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "EditRole", new { id = Model.Id, data_toggle = "modal", data_target = "#FormModal" }) |
+        @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#FormModal">
+            Edit
+        </button>*@
+        @*<input onclick='fun(@Model.Id)' type="submit" value="edit" data-toggle="modal" data-target="#FormModal" />*@
+
+
+       
+    </td>
+</tr>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+
+    function fun(id) {
+
+        console.log(id)
+        $.ajax({
+            type: "GET",
+            url: '/User/EditRole/' + id,
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (x,y,err) {
+                console.log(err);
+
+        }
+
+        })
+
+    }
+</script>

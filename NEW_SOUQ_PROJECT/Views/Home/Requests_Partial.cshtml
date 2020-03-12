@@ -1,0 +1,43 @@
+﻿@model Request
+<tr>
+    <td>
+        @Html.DisplayFor(model => model.UserId)
+    </td>
+    <td>
+        @Html.DisplayFor(model => model.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(model => model.Type)
+    </td>
+    <td>
+        @Html.ActionLink("Approve", "ApproveRequest", new { id = Model.Id }) |
+        @*@Html.ActionLink("Deny", "Deny", new { id = Model.Id }) |*@
+        <input onclick='requestFun(@Model.Id)' type="submit" value="delete" />
+
+    </td>
+</tr>
+
+<script type="text/javascript">
+
+    function requestFun(id) {
+        //$(this).replaceWith("<div>This is a danger alert—check it out!</div>");
+
+        console.log(id)
+        $.ajax({
+            type: "POST",
+            url: '/Home/DenyRequest/' + id,
+            success: function (data) {
+                console.log(data);
+                location.reload();
+                
+                ////document.getElementById("employee_Name").value = data.Name;
+            },
+            error: function (x,y,err) {
+                console.log(err);
+
+        }
+
+        })
+
+    }
+</script>
