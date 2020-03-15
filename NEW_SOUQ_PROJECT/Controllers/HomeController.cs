@@ -62,12 +62,21 @@ namespace NEW_SOUQ_PROJECT.Controllers
             return View();
         }
         
-        [Authorize(Roles = "Seller")]
+        
         public ActionResult SellerPage()
         {
-            ViewBag.Message = "Your contact page.";
+            string userId = User.Identity.GetUserId();
+            if (User.IsInRole("Seller")) {
+                List<Product> products = ctx.Products.Where(x => x.FK_UserId == userId).ToList();
+                return View(products);
 
-            return View();
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+
+            
         }
         public ActionResult SellerRequest(string userId)
         {
@@ -93,36 +102,46 @@ namespace NEW_SOUQ_PROJECT.Controllers
 
             return View();
         }
-        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> AdminPage()
         {
-            AdminViewModel avm = new AdminViewModel();
-            avm.categories = ctx.Categories.ToList();
-            avm.brands = ctx.Brands.ToList();
-            List<ApplicationUser> list = ctx.Users.ToList();
-            foreach (var item in list)
+            if (User.IsInRole("Admin"))
             {
-                using (
-                var userManager =
-                    new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
+                AdminViewModel avm = new AdminViewModel();
+                avm.categories = ctx.Categories.ToList();
+                avm.brands = ctx.Brands.ToList();
+                List<ApplicationUser> list = ctx.Users.ToList();
+                foreach (var item in list)
                 {
-                    var rolesForUser = await userManager.GetRolesAsync(item.Id);
-                   
-                    ApplicationUser User = ctx.Users.Find(item.Id);
-                    User.RoleId = rolesForUser.First();
-                    
+                    using (
+                    var userManager =
+                        new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
+                    {
+                        var rolesForUser = await userManager.GetRolesAsync(item.Id);
+
+                        ApplicationUser User = ctx.Users.Find(item.Id);
+                        //ViewBag.rolesList = rolesForUser;
+                        //User.RoleId = rolesForUser.First();
+
+                    }
+
                 }
+                List<Request> Requests = ctx.Requests.ToList();
+                avm.Requests = Requests;
+                avm.Users = list;
+                return PartialView("AdminPage", avm);
 
             }
-            List<Request> Requests = ctx.Requests.ToList();
-            avm.Requests = Requests;
-            avm.Users = list;
-            return PartialView("AdminPage", avm);
+            else
+            {
+                return RedirectToAction("Index");
+            }
+           
 
         }
         
         public ActionResult EditRole(string id)
         {
+            ApplicationUser user = ctx.Users.SingleOrDefault(x => x.Id == id);
             UserRoleViewModel urvm = new UserRoleViewModel
             {
                 roles = ctx.Roles.Select(r => new SelectListItem
@@ -131,26 +150,28 @@ namespace NEW_SOUQ_PROJECT.Controllers
                     Text = r.Name
                 }
                 ).ToList(),
-                User = ctx.Users.Find(id)
+                User = user
                 //assign user
             };
+            //ViewBag.rolesList = urvm.roles; 
             
-            return View(urvm);
+            return PartialView("Modal_Partial",urvm);
             //return Json(urvm, JsonRequestBehavior.AllowGet);
         }
+
         [HttpPost]
         public ActionResult EditRole(ApplicationUser user)
         {
 
             UserManager<ApplicationUser> userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
             userManager.RemoveFromRole(user.Id, "Admin");
-            userManager.RemoveFromRole(user.Id, "Uer");
+            userManager.RemoveFromRole(user.Id, "User");
             userManager.RemoveFromRole(user.Id, "Seller");
             userManager.AddToRole(user.Id, user.RoleId);
             ApplicationUser AppUser = ctx.Users.Find(user.Id);
             AppUser.RoleId = user.RoleId;
-            
-            
+
+
             ctx.SaveChanges();
 
 

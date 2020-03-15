@@ -11,24 +11,79 @@ namespace NEW_SOUQ_PROJECT.Controllers
     {
         ApplicationDbContext ctx = new ApplicationDbContext();
         // GET: Product
-        public ActionResult Single_Product()
+        public ActionResult Single_Product(int? id)
         {
+            List<Category> categories = ctx.Categories.ToList();
+            List<Brand> brands = ctx.Brands.ToList();
+            ViewBag.brands = brands;
+            ViewBag.categories = categories;
 
-            return View();
+            if (id!= null)
+            {
+                Product product = ctx.Products.SingleOrDefault(x => x.Id == id);
+                return View(product);
+            }
+            else
+            {
+                return RedirectToAction("Products_Listing");
+            }
+
+            
         }
+        //essraa
+        [HttpGet]
         public ActionResult Create_Product()
         {
+            CreateProductViewModel provm = new CreateProductViewModel();
 
-            return View();
+            provm.categories = ctx.Categories.Select(c => new SelectListItem
+            {
+                Value = c.Id.ToString(),
+                Text = c.Name
+            }).ToList();
+            provm.brands = ctx.Brands.Select(b => new SelectListItem
+            {
+                Value = b.Id.ToString(),
+                Text = b.Name
+            }).ToList();
+
+            return View(provm);
         }
-        public ActionResult Products_Listing(int id)
+
+
+        [HttpPost]
+        public ActionResult Create_Product(Product product)
+        {
+            if (ModelState.IsValid)
+            {
+
+                ctx.Products.Add(product);
+                ctx.SaveChanges();
+
+            }
+            ModelState.Clear();
+            return RedirectToAction("Index");
+            
+        }
+
+        public ActionResult Products_Listing(int? id)
         {
             BrandsCategoriesViewModel bcvm = new BrandsCategoriesViewModel();
             bcvm.categories = ctx.Categories.ToList();
             bcvm.brands = ctx.Brands.ToList();
-            bcvm.products = ctx.Products.Where(p => p.FK_CategoryId == id).ToList();
+            if(id != null)
+            {
+                bcvm.products = ctx.Products.Where(p => p.FK_CategoryId == id).ToList();
+                ViewBag.title = ctx.Categories.Find(id).Name;
 
-            ViewBag.title = ctx.Categories.Find(id).Name;
+            }
+            else
+            {
+                bcvm.products = ctx.Products.ToList();
+                ViewBag.title = "All Products";
+            }
+
+            
             ViewBag.count = bcvm.products.Count();
             return View(bcvm);
         }

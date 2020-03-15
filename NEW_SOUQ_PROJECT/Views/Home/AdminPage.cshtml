@@ -14,7 +14,7 @@
 
 @using Microsoft.AspNet.Identity;
 @using Microsoft.AspNet.Identity.EntityFramework;
-@using Microsoft.AspNet.Identity;
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -55,7 +55,7 @@
                             @if (User.IsInRole("Admin"))
                             {
                                 <div class="top_bar_contact_item">
-                                    <div class="top_bar_icon"><img src="images/phone.png" alt=""> </div>
+                                    <div class="top_bar_icon"><img src="~/Content/Images/phone.png" alt=""> </div>
                                     @Html.ActionLink("Admin", "AdminPage", "Home")
                                 </div>
                             }
@@ -63,44 +63,17 @@
                             {
                                 <div class="top_bar_contact_item">
                                     <div class="top_bar_icon">
-                                        <img src="images/mail.png" alt="">
+                                        <img src="~/Content/Images/mail.png" alt="">
                                     </div>@Html.ActionLink("Your Products", "SellerPage", "Home")
                                 </div>
 
                             }
-                            @if (User.IsInRole("User"))
-                            {
-                                <div class="top_bar_contact_item">
-                                    <div class="top_bar_icon">
-                                        <img src="images/mail.png" alt="">
-                                    </div>
-
-                                    @*//how is current user stored*@
-
-                                    @Html.ActionLink("Sell with us", "SellerRequest", "Home", new { userId = User.Identity.GetUserId() }, null);
-
-                                </div>
-
-                            }
+                            
 
                             <div class="top_bar_content ml-auto">
-                                <div class="top_bar_menu">
-                                    <ul class="standard_dropdown top_bar_dropdown">
-                                        <li>
-                                            <a href="#">English<i class="fas fa-chevron-down"></i></a>
-                                            <ul>
-                                                <li><a href="#">Italian</a></li>
-                                                <li><a href="#">Spanish</a></li>
-                                                <li><a href="#">Japanese</a></li>
-                                            </ul>
-                                        </li>
-
-                                    </ul>
-                                </div>
+                                
                                 <div class="top_bar_user">
-                                    @*<div class="user_icon"><img src="images/user.svg" alt=""></div>
-                                        <div><a href="#">Register</a></div>
-                                        <div><a href="#">Sign in</a></div>*@
+                                   
                                     @Html.Partial("_LoginPartial")
 
                                 </div>
@@ -151,7 +124,7 @@
                                                     </ul>
                                                 </div>
                                             </div>
-                                            <button type="submit" class="header_search_button trans_300" value="Submit"><img src="images/search.png" alt=""></button>
+                                            <button type="submit" class="header_search_button trans_300" value="Submit"><img src="~/Content/~/Content/Images/search.png" alt=""></button>
                                         </form>
                                     </div>
                                 </div>
@@ -300,8 +273,8 @@
                                 </ul>
 
                                 <div class="menu_contact">
-                                    <div class="menu_contact_item"><div class="menu_contact_icon"><img src="images/phone_white.png" alt=""></div>+38 068 005 3570</div>
-                                    <div class="menu_contact_item"><div class="menu_contact_icon"><img src="images/mail_white.png" alt=""></div><a href="mailto:fastsales@gmail.com">fastsales@gmail.com</a></div>
+                                    <div class="menu_contact_item"><div class="menu_contact_icon"><img src="~/Content/Images/phone_white.png" alt=""></div>+38 068 005 3570</div>
+                                    <div class="menu_contact_item"><div class="menu_contact_icon"><img src="~/Content/Images/mail_white.png" alt=""></div><a href="mailto:fastsales@gmail.com">fastsales@gmail.com</a></div>
                                 </div>
                             </div>
                         </div>
@@ -390,44 +363,29 @@
 
 
         <!-- Modal -->
-        @*<div class="modal fade" id="FormModal" tabindex="-1" role="dialog" aria-labelledby="FormModalLabel" aria-hidden="true">
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
-                    @Ajax.BeginForm("EditRole", Model.User.Id, opts, new { id = "form" })
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="FormModalLabel">Add Employee</h5>
+                            <h5 class="modal-title" id="myModalLabel">Edit Role</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body" id="FormGoesHere">
-                            <div class="form-group">
-
-                                @Html.LabelFor(model => model.User.RoleId, htmlAttributes: new { @class = "control-label col-md-2" })
-                                <div class="col-md-10">
-                                    @Html.DropDownListFor(model =>
-                               model.User.RoleId,
-                                     new SelectList(Model.roles, "Text", "Value", Model.User.RoleId), new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.User.RoleId, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-
-                            @Html.HiddenFor(model => model.User.Id)
-
-
-
-
+                        <div class="modal-body" id="myModalBodyDiv">
+                          
 
                         </div>
+                        
                         <div class="modal-footer">
-                            <input type="submit" value="Save" class="btn btn-default" />
+                            <input type="submit" value="Save" id="btnSubmit" class="btn btn-default" />
 
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
                         </div>
                     </div>
                 </div>
-            </div>*@
+            </div>
 
 
 
@@ -526,10 +484,10 @@
                             </div>
                             <div class="logos ml-sm-auto">
                                 <ul class="logos_list">
-                                    <li><a href="#"><img src="images/logos_1.png" alt=""></a></li>
-                                    <li><a href="#"><img src="images/logos_2.png" alt=""></a></li>
-                                    <li><a href="#"><img src="images/logos_3.png" alt=""></a></li>
-                                    <li><a href="#"><img src="images/logos_4.png" alt=""></a></li>
+                                    <li><a href="#"><img src="~/Content/Images/logos_1.png" alt=""></a></li>
+                                    <li><a href="#"><img src="~/Content/Images/logos_2.png" alt=""></a></li>
+                                    <li><a href="#"><img src="~/Content/Images/logos_3.png" alt=""></a></li>
+                                    <li><a href="#"><img src="~/Content/Images/logos_4.png" alt=""></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -554,6 +512,7 @@
 
 
     <script src="~/scripts/MyScripts/custom.js"></script>
+    
 </body>
 
 </html>

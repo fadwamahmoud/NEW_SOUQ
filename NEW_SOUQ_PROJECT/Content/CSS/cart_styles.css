@@ -1,4 +1,4 @@
-@charset "utf-8";
+﻿@charset "utf-8";
 /* CSS Document */
 
 /******************************
@@ -56,7 +56,7 @@ div
 ul
 {
 	list-style: none;
-	margin-bottom: 0px;
+	margin-bottom: 10px;
 }
 p
 {

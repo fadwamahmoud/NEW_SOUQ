@@ -252,12 +252,21 @@
     <Compile Include="Migrations\202003100722387_ChangeUserProperties.Designer.cs">
       <DependentUpon>202003100722387_ChangeUserProperties.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003131051024_AddUserIdPropertyToProduct.cs" />
+    <Compile Include="Migrations\202003131051024_AddUserIdPropertyToProduct.Designer.cs">
+      <DependentUpon>202003131051024_AddUserIdPropertyToProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003131057052_AddUserPropertyToProductWithFK.cs" />
+    <Compile Include="Migrations\202003131057052_AddUserPropertyToProductWithFK.Designer.cs">
+      <DependentUpon>202003131057052_AddUserPropertyToProductWithFK.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModel.cs" />
     <Compile Include="Models\Brand.cs" />
     <Compile Include="Models\BrandsCategoriesViewModel.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\CreateProductViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Product.cs" />
@@ -512,6 +521,9 @@
     <Content Include="Views\Shared\Category_Partial.cshtml" />
     <Content Include="Views\Shared\Brand_Partial.cshtml" />
     <Content Include="Views\Shared\_Layoutm.cshtml" />
+    <Content Include="Views\Home\Modal_Partial.cshtml" />
+    <Content Include="Views\Home\Seller_Product_Partial.cshtml" />
+    <Content Include="Views\Product\Shop_Product_Discount_Partial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -560,6 +572,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202003100722387_ChangeUserProperties.resx">
       <DependentUpon>202003100722387_ChangeUserProperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003131051024_AddUserIdPropertyToProduct.resx">
+      <DependentUpon>202003131051024_AddUserIdPropertyToProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003131057052_AddUserPropertyToProductWithFK.resx">
+      <DependentUpon>202003131057052_AddUserPropertyToProductWithFK.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

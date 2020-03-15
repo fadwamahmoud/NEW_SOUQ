@@ -11,8 +11,7 @@
     </td>
     <td>
         @Html.ActionLink("Approve", "ApproveRequest", new { id = Model.Id }) |
-        @*@Html.ActionLink("Deny", "Deny", new { id = Model.Id }) |*@
-        <input onclick='requestFun(@Model.Id)' type="submit" value="delete" />
+        <input onclick='requestFun(@Model.Id)' type="submit" value="Deny" />
 
     </td>
 </tr>
@@ -30,7 +29,6 @@
                 console.log(data);
                 location.reload();
                 
-                ////document.getElementById("employee_Name").value = data.Name;
             },
             error: function (x,y,err) {
                 console.log(err);

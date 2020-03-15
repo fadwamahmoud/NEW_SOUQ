@@ -16,14 +16,18 @@ namespace NEW_SOUQ_PROJECT.Models
         public float Price { get; set; }
         public float PriceAfterSale { get; set; }
         public string Image { get; set; }
+        
 
         [ForeignKey("Category")]
         public int FK_CategoryId { get; set; }
         [ForeignKey("Brand")]
         public int FK_BrandId { get; set; }
+        [ForeignKey("User")]
+        public string FK_UserId { get; set; }
 
         public virtual Category Category { get; set; }
         public virtual Brand Brand { get; set; }
+        public virtual ApplicationUser User { get; set; }
 
 
 

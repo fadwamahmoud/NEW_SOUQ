@@ -46,7 +46,7 @@
                             @if (User.IsInRole("Admin"))
                             {
                                 <div class="top_bar_contact_item">
-                                    <div class="top_bar_icon"><img src="images/phone.png" alt=""> </div>
+                                    <div class="top_bar_icon"><img src="~/Content/Images/phone.png" alt=""> </div>
                                     @Html.ActionLink("Admin", "AdminPage", "Home")
                                 </div>
                             }
@@ -54,44 +54,19 @@
                             {
                                 <div class="top_bar_contact_item">
                                     <div class="top_bar_icon">
-                                        <img src="images/mail.png" alt="">
+                                        <img src="~/Content/Images/mail.png" alt="">
                                     </div>@Html.ActionLink("Your Products", "SellerPage", "Home")
                                 </div>
 
                             }
-                            @if (User.IsInRole("User"))
-                            {
-                                <div class="top_bar_contact_item">
-                                    <div class="top_bar_icon">
-                                        <img src="images/mail.png" alt="">
-                                    </div>
 
-                                    @*//how is current user stored*@
-
-                                    @Html.ActionLink("Sell with us", "SellerRequest", "Home", new { userId = User.Identity.GetUserId() }, null);
-
-                                </div>
-
-                            }
 
                             <div class="top_bar_content ml-auto">
-                                <div class="top_bar_menu">
-                                    <ul class="standard_dropdown top_bar_dropdown">
-                                        <li>
-                                            <a href="#">English<i class="fas fa-chevron-down"></i></a>
-                                            <ul>
-                                                <li><a href="#">Italian</a></li>
-                                                <li><a href="#">Spanish</a></li>
-                                                <li><a href="#">Japanese</a></li>
-                                            </ul>
-                                        </li>
 
-                                    </ul>
-                                </div>
                                 <div class="top_bar_user">
-                                    @*<div class="user_icon"><img src="images/user.svg" alt=""></div>
-                                        <div><a href="#">Register</a></div>
-                                        <div><a href="#">Sign in</a></div>*@
+                                    @*<div class="user_icon"><img src="~/Content/Images/user.svg" alt=""></div>
+                                    <div><a href="#">Register</a></div>
+                                    <div><a href="#">Sign in</a></div>*@
                                     @Html.Partial("_LoginPartial")
 
                                 </div>
@@ -135,14 +110,14 @@
                                                             }
                                                         }
                                                         @*<li><a class="clc" href="#">Computers</a></li>
-                                                            <li><a class="clc" href="#">Laptops</a></li>
-                                                            <li><a class="clc" href="#">Cameras</a></li>
-                                                            <li><a class="clc" href="#">Hardware</a></li>
-                                                            <li><a class="clc" href="#">Smartphones</a></li>*@
+                                                        <li><a class="clc" href="#">Laptops</a></li>
+                                                        <li><a class="clc" href="#">Cameras</a></li>
+                                                        <li><a class="clc" href="#">Hardware</a></li>
+                                                        <li><a class="clc" href="#">Smartphones</a></li>*@
                                                     </ul>
                                                 </div>
                                             </div>
-                                            <button type="submit" class="header_search_button trans_300" value="Submit"><img src="images/search.png" alt=""></button>
+                                            <button type="submit" class="header_search_button trans_300" value="Submit"><img src="~/Content/Images/search.png" alt=""></button>
                                         </form>
                                     </div>
                                 </div>
@@ -171,6 +146,9 @@
                                     </div>
 
                                     <ul class="cat_menu">
+                                        <li>
+                                            <a href='@Url.Action("Products_Listing", "Product")'>All Categories<i class="fas fa-chevron-right ml-auto"></i></a>
+                                        </li>
                                         @{
                                             foreach (Category c in Model.categories)
                                             {
@@ -291,8 +269,8 @@
                                 </ul>
 
                                 <div class="menu_contact">
-                                    <div class="menu_contact_item"><div class="menu_contact_icon"><img src="images/phone_white.png" alt=""></div>+38 068 005 3570</div>
-                                    <div class="menu_contact_item"><div class="menu_contact_icon"><img src="images/mail_white.png" alt=""></div><a href="mailto:fastsales@gmail.com">fastsales@gmail.com</a></div>
+                                    <div class="menu_contact_item"><div class="menu_contact_icon"><img src="~/Content/Images/phone_white.png" alt=""></div>+38 068 005 3570</div>
+                                    <div class="menu_contact_item"><div class="menu_contact_icon"><img src="~/Content/Images/mail_white.png" alt=""></div><a href="mailto:fastsales@gmail.com">fastsales@gmail.com</a></div>
                                 </div>
                             </div>
                         </div>
@@ -305,7 +283,7 @@
         <!-- Home -->
 
         <div class="home">
-            <div class="home_background parallax-window" data-parallax="scroll" data-image-src="images/shop_background.jpg"></div>
+            <div class="home_background parallax-window" data-parallax="scroll" data-image-src="~/Content/Images/shop_background.jpg"></div>
             <div class="home_overlay"></div>
             <div class="home_content d-flex flex-column align-items-center justify-content-center">
                 <h2 class="home_title">@ViewBag.title</h2>
@@ -324,15 +302,12 @@
                             <div class="sidebar_section">
                                 <div class="sidebar_title">Categories</div>
                                 <ul class="sidebar_categories">
-                                    <li><a href="#">Computers & Laptops</a></li>
-                                    <li><a href="#">Cameras & Photos</a></li>
-                                    <li><a href="#">Hardware</a></li>
-                                    <li><a href="#">Smartphones & Tablets</a></li>
-                                    <li><a href="#">TV & Audio</a></li>
-                                    <li><a href="#">Gadgets</a></li>
-                                    <li><a href="#">Car Electronics</a></li>
-                                    <li><a href="#">Video Games & Consoles</a></li>
-                                    <li><a href="#">Accessories</a></li>
+                                    @{
+                                        foreach (Category c in Model.categories)
+                                        {
+                                            Html.RenderPartial("Category_Partial", c);
+                                        }
+                                    }
                                 </ul>
                             </div>
                             <div class="sidebar_section filter_by_section">
@@ -358,14 +333,13 @@
                             <div class="sidebar_section">
                                 <div class="sidebar_subtitle brands_subtitle">Brands</div>
                                 <ul class="brands_list">
-                                    <li class="brand"><a href="#">Apple</a></li>
-                                    <li class="brand"><a href="#">Beoplay</a></li>
-                                    <li class="brand"><a href="#">Google</a></li>
-                                    <li class="brand"><a href="#">Meizu</a></li>
-                                    <li class="brand"><a href="#">OnePlus</a></li>
-                                    <li class="brand"><a href="#">Samsung</a></li>
-                                    <li class="brand"><a href="#">Sony</a></li>
-                                    <li class="brand"><a href="#">Xiaomi</a></li>
+                                    @{
+                                        foreach (Brand c in Model.brands)
+                                        {
+                                            Html.RenderPartial("Brand_Partial", c);
+                                        }
+
+                                    }
                                 </ul>
                             </div>
                         </div>
@@ -380,11 +354,8 @@
                             <div class="shop_bar clearfix">
                                 <div class="shop_product_count"><span>@ViewBag.count</span> products found</div>
                                 <div class="shop_sorting">
-                                    <span>Sort by:</span>
                                     <ul>
                                         <li>
-                                            @*////////////i end tag was after span////////*@
-                                            <span class="sorting_text">highest rated<i> class="fas fa-chevron-down"></i></span>
                                             <ul>
                                                 <li class="shop_sorting_button" data-isotope-option='{ "sortBy": "original-order" }'>highest rated</li>
                                                 <li class="shop_sorting_button" data-isotope-option='{ "sortBy": "name" }'>name</li>
@@ -399,14 +370,24 @@
                                 <div class="product_grid_border"></div>
                                 @foreach (Product p in Model.products)
                                 {
-                                    Html.RenderPartial("Shop_Product_Partial", p);
+                                    if(p.PriceAfterSale< p.Price)
+                                    {
+                                        Html.RenderPartial("Shop_Product_Discount_Partial", p);
+                                        
+
+                                    }
+                                    else
+                                    {
+                                        Html.RenderPartial("Shop_Product_Partial", p);
+                                    }
+
 
                                 }
 
                                 <!-- Product Item -->
                                 <div class="product_item">
                                     <div class="product_border"></div>
-                                    <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="images/featured_8.png" alt=""></div>
+                                    <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="~/Content/Images/featured_8.png" alt=""></div>
                                     <div class="product_content">
                                         <div class="product_price">$379</div>
                                         <div class="product_name"><div><a href="#" tabindex="0">Digitus EDNET...</a></div></div>
@@ -421,7 +402,7 @@
                                 <!-- Product Item -->
                                 <div class="product_item is_new">
                                     <div class="product_border"></div>
-                                    <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="images/new_1.jpg" alt=""></div>
+                                    <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="~/Content/Images/new_1.jpg" alt=""></div>
                                     <div class="product_content">
                                         <div class="product_price">$225</div>
                                         <div class="product_name"><div><a href="#" tabindex="0">Astro M2 Black</a></div></div>
@@ -436,7 +417,7 @@
                                 <!-- Product Item -->
                                 <div class="product_item is_new">
                                     <div class="product_border"></div>
-                                    <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="images/new_2.jpg" alt=""></div>
+                                    <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="~/Content/Images/new_2.jpg" alt=""></div>
                                     <div class="product_content">
                                         <div class="product_price">$225</div>
                                         <div class="product_name"><div><a href="#" tabindex="0">Transcend T.Sonic</a></div></div>
@@ -451,7 +432,7 @@
                                 <!-- Product Item -->
                                 <div class="product_item is_new">
                                     <div class="product_border"></div>
-                                    <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="images/new_3.jpg" alt=""></div>
+                                    <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="~/Content/Images/new_3.jpg" alt=""></div>
                                     <div class="product_content">
                                         <div class="product_price">$225</div>
                                         <div class="product_name"><div><a href="#" tabindex="0">Xiaomi Band 2...</a></div></div>
@@ -466,7 +447,7 @@
                                 <!-- Product Item -->
                                 <div class="product_item is_new">
                                     <div class="product_border"></div>
-                                    <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="images/new_4.jpg" alt=""></div>
+                                    <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="~/Content/Images/new_4.jpg" alt=""></div>
                                     <div class="product_content">
                                         <div class="product_price">$379</div>
                                         <div class="product_name"><div><a href="#" tabindex="0">Rapoo T8 White</a></div></div>
@@ -481,7 +462,7 @@
                                 <!-- Product Item -->
                                 <div class="product_item discount">
                                     <div class="product_border"></div>
-                                    <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="images/featured_1.png" alt=""></div>
+                                    <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="~/Content/Images/featured_1.png" alt=""></div>
                                     <div class="product_content">
                                         <div class="product_price">$225<span>$300</span></div>
                                         <div class="product_name"><div><a href="#" tabindex="0">Huawei MediaPad...</a></div></div>
@@ -496,7 +477,7 @@
                                 <!-- Product Item -->
                                 <div class="product_item is_new">
                                     <div class="product_border"></div>
-                                    <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="images/new_6.jpg" alt=""></div>
+                                    <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="~/Content/Images/new_6.jpg" alt=""></div>
                                     <div class="product_content">
                                         <div class="product_price">$379</div>
                                         <div class="product_name"><div><a href="#" tabindex="0">Nokia 3310 (2017)</a></div></div>
@@ -511,7 +492,7 @@
                                 <!-- Product Item -->
                                 <div class="product_item is_new">
                                     <div class="product_border"></div>
-                                    <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="images/new_7.jpg" alt=""></div>
+                                    <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="~/Content/Images/new_7.jpg" alt=""></div>
                                     <div class="product_content">
                                         <div class="product_price">$225</div>
                                         <div class="product_name"><div><a href="#" tabindex="0">Rapoo 7100p Gray</a></div></div>
@@ -526,7 +507,7 @@
                                 <!-- Product Item -->
                                 <div class="product_item is_new">
                                     <div class="product_border"></div>
-                                    <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="images/new_8.jpg" alt=""></div>
+                                    <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="~/Content/Images/new_8.jpg" alt=""></div>
                                     <div class="product_content">
                                         <div class="product_price">$379</div>
                                         <div class="product_name"><div><a href="#" tabindex="0">Canon EF</a></div></div>
@@ -541,7 +522,7 @@
                                 <!-- Product Item -->
                                 <div class="product_item is_new">
                                     <div class="product_border"></div>
-                                    <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="images/shop_2.jpg" alt=""></div>
+                                    <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="~/Content/Images/shop_2.jpg" alt=""></div>
                                     <div class="product_content">
                                         <div class="product_price">$225</div>
                                         <div class="product_name"><div><a href="#" tabindex="0">Gembird SPK-103</a></div></div>
@@ -556,7 +537,7 @@
                                 <!-- Product Item -->
                                 <div class="product_item is_new">
                                     <div class="product_border"></div>
-                                    <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="images/featured_5.png" alt=""></div>
+                                    <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="~/Content/Images/featured_5.png" alt=""></div>
                                     <div class="product_content">
                                         <div class="product_price">$379</div>
                                         <div class="product_name"><div><a href="#" tabindex="0">Canon STM Kit...</a></div></div>
@@ -684,10 +665,10 @@
                             </div>
                             <div class="logos ml-sm-auto">
                                 <ul class="logos_list">
-                                    <li><a href="#"><img src="images/logos_1.png" alt=""></a></li>
-                                    <li><a href="#"><img src="images/logos_2.png" alt=""></a></li>
-                                    <li><a href="#"><img src="images/logos_3.png" alt=""></a></li>
-                                    <li><a href="#"><img src="images/logos_4.png" alt=""></a></li>
+                                    <li><a href="#"><img src="~/Content/Images/logos_1.png" alt=""></a></li>
+                                    <li><a href="#"><img src="~/Content/Images/logos_2.png" alt=""></a></li>
+                                    <li><a href="#"><img src="~/Content/Images/logos_3.png" alt=""></a></li>
+                                    <li><a href="#"><img src="~/Content/Images/logos_4.png" alt=""></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -714,6 +695,7 @@
     <script src="~/Content/plugins/parallax-js-master/parallax.min.js"></script>
 
     <script src="~/scripts/MyScripts/shop_custom.js"></script>
+
 </body>
 
 </html>

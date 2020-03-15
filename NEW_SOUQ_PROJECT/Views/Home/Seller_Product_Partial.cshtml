@@ -1,0 +1,34 @@
+﻿@model Product
+<ul class="cart_list" style="margin-bottom: 10px">
+    <li class="cart_item clearfix">
+        <div class="cart_item_image"><img src=@Model.Image alt=""></div>
+        <div class="cart_item_info d-flex flex-md-row flex-column justify-content-between">
+            <div class="cart_item_name cart_info_col">
+                <div class="cart_item_title">Name</div>
+                <div class="cart_item_text">@Model.Name</div>
+            </div>
+            <div class="cart_item_color cart_info_col">
+                <div class="cart_item_title">Color</div>
+                <div class="cart_item_text"><span style="background-color:#999999;"></span></div>
+            </div>
+
+            <div class="cart_item_price cart_info_col">
+                <div class="cart_item_title">Price</div>
+                <div class="cart_item_text" style="text-decoration:line-through">@Model.Price</div>
+            </div>
+            <div class="cart_item_price cart_info_col">
+                <div class="cart_item_title">Price after sale</div>
+                <div class="cart_item_text">@Model.PriceAfterSale</div>
+            </div>
+            <div class="cart_item_price cart_info_col">
+                <div class="cart_item_title">Category</div>
+                <div class="cart_item_text">@Model.Category.Name</div>
+            </div>
+            <div class="cart_item_price cart_info_col">
+                <div class="cart_item_title">Brand</div>
+                <div class="cart_item_text">@Model.Brand.Name</div>
+            </div>
+
+        </div>
+    </li>
+</ul>
