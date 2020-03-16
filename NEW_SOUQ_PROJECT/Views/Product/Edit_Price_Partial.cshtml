@@ -1,0 +1,94 @@
+﻿@model Product
+
+
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <div class="form-group">
+                @Html.HiddenFor(model => model.Id)
+                @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.PriceAfterSale, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.PriceAfterSale, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PriceAfterSale, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <a href="#" id="btnSubmit">Save</a>
+                </div>
+            </div>
+        </div>
+
+    @*<form id="myform">
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <div class="form-group">
+                @Html.HiddenFor(model => model.Id)
+                @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.PriceAfterSale, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.PriceAfterSale, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PriceAfterSale, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <a href="#" id="btnSubmit">Save</a>
+            </div>
+        </div>
+    </form>*@
+
+
+
+
+<script>
+    $(document).ready(function () {
+        $("#btnSubmit").click(function () {
+            $("#loaderDiv").show();
+            var myformdata = $("#myform").serialize();
+            console.log(myformdata)
+
+            $.ajax({
+                type: "POST",
+                url: "/Product/Edit_Product",
+                data: myformdata,
+                success: function () {
+                    $("#loaderDiv").hide();
+                    $("#myModal").modal("hide");
+                    location.reload();
+
+                },
+                error: function (x,y,err) {
+                    console.log(err)
+                    $("#loaderDiv").hide();
+                    $("#myModal").modal("hide");
+                    location.reload();
+
+            }
+            })
+        })
+    })
+
+    
+
+</script>

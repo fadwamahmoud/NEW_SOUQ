@@ -43,7 +43,7 @@
                             @if (User.IsInRole("Admin"))
                             {
                                 <div class="top_bar_contact_item">
-                                    <div class="top_bar_icon"><img src="~/Content/~/Content/Images/phone.png" alt=""> </div>
+                                    <div class="top_bar_icon"><img src="~/Content/Images/phone.png" alt=""> </div>
                                     @Html.ActionLink("Admin", "AdminPage", "Home")
                                 </div>
                             }
@@ -51,7 +51,7 @@
                             {
                                 <div class="top_bar_contact_item">
                                     <div class="top_bar_icon">
-                                        <img src="~/Content/~/Content/Images/mail.png" alt="">
+                                        <img src="~/Content/Images/mail.png" alt="">
                                     </div>@Html.ActionLink("Your Products", "SellerPage")
                                 </div>
 
@@ -61,7 +61,7 @@
                             <div class="top_bar_content ml-auto">
                                 
                                 <div class="top_bar_user">
-                                    @*<div class="user_icon"><img src="~/Content/~/Content/Images/user.svg" alt=""></div>
+                                    @*<div class="user_icon"><img src="~/Content/Images/user.svg" alt=""></div>
                                         <div><a href="#">Register</a></div>
                                         <div><a href="#">Sign in</a></div>*@
                                     @Html.Partial("_LoginPartial")
@@ -91,8 +91,9 @@
                             <div class="header_search">
                                 <div class="header_search_content">
                                     <div class="header_search_form_container">
-                                        <form action="#" class="header_search_form clearfix">
-                                            <input type="search" required="required" class="header_search_input" placeholder="Search for products...">
+                                        @using (Html.BeginForm("Products_Listing", "Product", FormMethod.Get, new { @class = "header_search_form clearfix" })) {
+                                            @*Html.TextBox("search",, new { @class = "header_search_input" })*@
+                                            <input id="search" name="search" type="text" value="" required="required" class="header_search_input" placeholder="Search for products...">
                                             <div class="custom_dropdown">
                                                 <div class="custom_dropdown_list">
                                                     <span class="custom_dropdown_placeholder clc">All Categories</span>
@@ -115,7 +116,7 @@
                                                 </div>
                                             </div>
                                             <button type="submit" class="header_search_button trans_300" value="Submit"><img src="~/Content/Images/search.png" alt=""></button>
-                                        </form>
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -265,8 +266,8 @@
                                 </ul>
 
                                 <div class="menu_contact">
-                                    <div class="menu_contact_item"><div class="menu_contact_icon"><img src="~/Content/~/Content/Images/phone_white.png" alt=""></div>+38 068 005 3570</div>
-                                    <div class="menu_contact_item"><div class="menu_contact_icon"><img src="~/Content/~/Content/Images/mail_white.png" alt=""></div><a href="mailto:fastsales@gmail.com">fastsales@gmail.com</a></div>
+                                    <div class="menu_contact_item"><div class="menu_contact_icon"><img src="~/Content/Images/phone_white.png" alt=""></div>+38 068 005 3570</div>
+                                    <div class="menu_contact_item"><div class="menu_contact_icon"><img src="~/Content/Images/mail_white.png" alt=""></div><a href="mailto:fastsales@gmail.com">fastsales@gmail.com</a></div>
                                 </div>
                             </div>
                         </div>
@@ -287,7 +288,7 @@
                             <h1 class="banner_text">new era of smartphones</h1>
                             <div class="banner_price"><span>$530</span>$460</div>
                             <div class="banner_product_name">Apple Iphone 6s</div>
-                            <div class="button banner_button"><a href="#">Shop Now</a></div>
+                            <div class="button banner_button"><a href='@Url.Action("Products_Listing", "Product",null)'>Shop Now</a></div>
                         </div>
                     </div>
                 </div>
@@ -364,7 +365,7 @@
                     <div class="col-lg-3 footer_col">
                         <div class="footer_column footer_contact">
                             <div class="logo_container">
-                                <div class="logo"><a href="#">OneTech</a></div>
+                                <div class="logo"><a href='@Url.Action("Index", "Home")'>OneTech</a></div>
                             </div>
                             <div class="footer_title">Got Question? Call Us 24/7</div>
                             <div class="footer_phone">+38 068 005 3570</div>

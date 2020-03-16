@@ -19,6 +19,7 @@ namespace NEW_SOUQ_PROJECT.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
+            
             BrandsCategoriesViewModel bcvm = new BrandsCategoriesViewModel()
             {
                 categories = ctx.Categories.ToList(),
@@ -236,6 +237,8 @@ namespace NEW_SOUQ_PROJECT.Controllers
             
             return new EmptyResult();
         }
+
+        
         
 
 

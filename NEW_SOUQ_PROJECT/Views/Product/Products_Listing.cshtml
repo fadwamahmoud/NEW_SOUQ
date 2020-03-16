@@ -1,4 +1,6 @@
 ﻿@using Microsoft.AspNet.Identity;
+@using PagedList.Mvc;
+@using PagedList;
 
 @{
     Layout = null;
@@ -94,21 +96,22 @@
                             <div class="header_search">
                                 <div class="header_search_content">
                                     <div class="header_search_form_container">
-                                        <form action="#" class="header_search_form clearfix">
-                                            <input type="search" required="required" class="header_search_input" placeholder="Search for products...">
-                                            <div class="custom_dropdown">
+                                        @using (Html.BeginForm("Products_Listing", "Product", FormMethod.Get, new { @class = "header_search_form clearfix" }))
+                                        {
+                                        @*Html.TextBox("search",, new { @class = "header_search_input" })*@
+                                        <input id="search" name="search" type="text" value="" required="required" class="header_search_input" placeholder="Search for products...">
+                                        
+                                        <div class="custom_dropdown">
                                                 <div class="custom_dropdown_list">
                                                     <span class="custom_dropdown_placeholder clc">All Categories</span>
                                                     <i class="fas fa-chevron-down"></i>
                                                     <ul class="custom_list clc">
-                                                        @{
-                                                            foreach (Category c in Model.categories)
-                                                            {
+                                                       
 
-                                                                <li><a class="clc" href="#">@c.Name</a></li>
+                                                                <li><a class="clc" href="#"></a></li>
 
-                                                            }
-                                                        }
+                                                            
+                                                        
                                                         @*<li><a class="clc" href="#">Computers</a></li>
                                                         <li><a class="clc" href="#">Laptops</a></li>
                                                         <li><a class="clc" href="#">Cameras</a></li>
@@ -118,7 +121,7 @@
                                                 </div>
                                             </div>
                                             <button type="submit" class="header_search_button trans_300" value="Submit"><img src="~/Content/Images/search.png" alt=""></button>
-                                        </form>
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -352,7 +355,7 @@
 
                         <div class="shop_content">
                             <div class="shop_bar clearfix">
-                                <div class="shop_product_count"><span>@ViewBag.count</span> products found</div>
+                                <div class="shop_product_count"><span>@ViewBag.count</span>Results shown</div>
                                 <div class="shop_sorting">
                                     <ul>
                                         <li>
@@ -370,10 +373,10 @@
                                 <div class="product_grid_border"></div>
                                 @foreach (Product p in Model.products)
                                 {
-                                    if(p.PriceAfterSale< p.Price)
+                                    if (p.PriceAfterSale < p.Price)
                                     {
                                         Html.RenderPartial("Shop_Product_Discount_Partial", p);
-                                        
+
 
                                     }
                                     else
@@ -384,186 +387,22 @@
 
                                 }
 
-                                <!-- Product Item -->
-                                <div class="product_item">
-                                    <div class="product_border"></div>
-                                    <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="~/Content/Images/featured_8.png" alt=""></div>
-                                    <div class="product_content">
-                                        <div class="product_price">$379</div>
-                                        <div class="product_name"><div><a href="#" tabindex="0">Digitus EDNET...</a></div></div>
-                                    </div>
-                                    <div class="product_fav"><i class="fas fa-heart"></i></div>
-                                    <ul class="product_marks">
-                                        <li class="product_mark product_discount">-25%</li>
-                                        <li class="product_mark product_new">new</li>
-                                    </ul>
-                                </div>
-
-                                <!-- Product Item -->
-                                <div class="product_item is_new">
-                                    <div class="product_border"></div>
-                                    <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="~/Content/Images/new_1.jpg" alt=""></div>
-                                    <div class="product_content">
-                                        <div class="product_price">$225</div>
-                                        <div class="product_name"><div><a href="#" tabindex="0">Astro M2 Black</a></div></div>
-                                    </div>
-                                    <div class="product_fav"><i class="fas fa-heart"></i></div>
-                                    <ul class="product_marks">
-                                        <li class="product_mark product_discount">-25%</li>
-                                        <li class="product_mark product_new">new</li>
-                                    </ul>
-                                </div>
-
-                                <!-- Product Item -->
-                                <div class="product_item is_new">
-                                    <div class="product_border"></div>
-                                    <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="~/Content/Images/new_2.jpg" alt=""></div>
-                                    <div class="product_content">
-                                        <div class="product_price">$225</div>
-                                        <div class="product_name"><div><a href="#" tabindex="0">Transcend T.Sonic</a></div></div>
-                                    </div>
-                                    <div class="product_fav"><i class="fas fa-heart"></i></div>
-                                    <ul class="product_marks">
-                                        <li class="product_mark product_discount">-25%</li>
-                                        <li class="product_mark product_new">new</li>
-                                    </ul>
-                                </div>
-
-                                <!-- Product Item -->
-                                <div class="product_item is_new">
-                                    <div class="product_border"></div>
-                                    <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="~/Content/Images/new_3.jpg" alt=""></div>
-                                    <div class="product_content">
-                                        <div class="product_price">$225</div>
-                                        <div class="product_name"><div><a href="#" tabindex="0">Xiaomi Band 2...</a></div></div>
-                                    </div>
-                                    <div class="product_fav"><i class="fas fa-heart"></i></div>
-                                    <ul class="product_marks">
-                                        <li class="product_mark product_discount">-25%</li>
-                                        <li class="product_mark product_new">new</li>
-                                    </ul>
-                                </div>
-
-                                <!-- Product Item -->
-                                <div class="product_item is_new">
-                                    <div class="product_border"></div>
-                                    <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="~/Content/Images/new_4.jpg" alt=""></div>
-                                    <div class="product_content">
-                                        <div class="product_price">$379</div>
-                                        <div class="product_name"><div><a href="#" tabindex="0">Rapoo T8 White</a></div></div>
-                                    </div>
-                                    <div class="product_fav"><i class="fas fa-heart"></i></div>
-                                    <ul class="product_marks">
-                                        <li class="product_mark product_discount">-25%</li>
-                                        <li class="product_mark product_new">new</li>
-                                    </ul>
-                                </div>
-
-                                <!-- Product Item -->
-                                <div class="product_item discount">
-                                    <div class="product_border"></div>
-                                    <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="~/Content/Images/featured_1.png" alt=""></div>
-                                    <div class="product_content">
-                                        <div class="product_price">$225<span>$300</span></div>
-                                        <div class="product_name"><div><a href="#" tabindex="0">Huawei MediaPad...</a></div></div>
-                                    </div>
-                                    <div class="product_fav"><i class="fas fa-heart"></i></div>
-                                    <ul class="product_marks">
-                                        <li class="product_mark product_discount">-25%</li>
-                                        <li class="product_mark product_new">new</li>
-                                    </ul>
-                                </div>
-
-                                <!-- Product Item -->
-                                <div class="product_item is_new">
-                                    <div class="product_border"></div>
-                                    <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="~/Content/Images/new_6.jpg" alt=""></div>
-                                    <div class="product_content">
-                                        <div class="product_price">$379</div>
-                                        <div class="product_name"><div><a href="#" tabindex="0">Nokia 3310 (2017)</a></div></div>
-                                    </div>
-                                    <div class="product_fav"><i class="fas fa-heart"></i></div>
-                                    <ul class="product_marks">
-                                        <li class="product_mark product_discount">-25%</li>
-                                        <li class="product_mark product_new">new</li>
-                                    </ul>
-                                </div>
-
-                                <!-- Product Item -->
-                                <div class="product_item is_new">
-                                    <div class="product_border"></div>
-                                    <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="~/Content/Images/new_7.jpg" alt=""></div>
-                                    <div class="product_content">
-                                        <div class="product_price">$225</div>
-                                        <div class="product_name"><div><a href="#" tabindex="0">Rapoo 7100p Gray</a></div></div>
-                                    </div>
-                                    <div class="product_fav"><i class="fas fa-heart"></i></div>
-                                    <ul class="product_marks">
-                                        <li class="product_mark product_discount">-25%</li>
-                                        <li class="product_mark product_new">new</li>
-                                    </ul>
-                                </div>
-
-                                <!-- Product Item -->
-                                <div class="product_item is_new">
-                                    <div class="product_border"></div>
-                                    <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="~/Content/Images/new_8.jpg" alt=""></div>
-                                    <div class="product_content">
-                                        <div class="product_price">$379</div>
-                                        <div class="product_name"><div><a href="#" tabindex="0">Canon EF</a></div></div>
-                                    </div>
-                                    <div class="product_fav"><i class="fas fa-heart"></i></div>
-                                    <ul class="product_marks">
-                                        <li class="product_mark product_discount">-25%</li>
-                                        <li class="product_mark product_new">new</li>
-                                    </ul>
-                                </div>
-
-                                <!-- Product Item -->
-                                <div class="product_item is_new">
-                                    <div class="product_border"></div>
-                                    <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="~/Content/Images/shop_2.jpg" alt=""></div>
-                                    <div class="product_content">
-                                        <div class="product_price">$225</div>
-                                        <div class="product_name"><div><a href="#" tabindex="0">Gembird SPK-103</a></div></div>
-                                    </div>
-                                    <div class="product_fav"><i class="fas fa-heart"></i></div>
-                                    <ul class="product_marks">
-                                        <li class="product_mark product_discount">-25%</li>
-                                        <li class="product_mark product_new">new</li>
-                                    </ul>
-                                </div>
-
-                                <!-- Product Item -->
-                                <div class="product_item is_new">
-                                    <div class="product_border"></div>
-                                    <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="~/Content/Images/featured_5.png" alt=""></div>
-                                    <div class="product_content">
-                                        <div class="product_price">$379</div>
-                                        <div class="product_name"><div><a href="#" tabindex="0">Canon STM Kit...</a></div></div>
-                                    </div>
-                                    <div class="product_fav"><i class="fas fa-heart"></i></div>
-                                    <ul class="product_marks">
-                                        <li class="product_mark product_discount">-25%</li>
-                                        <li class="product_mark product_new">new</li>
-                                    </ul>
-                                </div>
 
                             </div>
+                            
+                                
 
                             <!-- Shop Page Navigation -->
 
-                            <div class="shop_page_nav d-flex flex-row">
-                                <div class="page_prev d-flex flex-column align-items-center justify-content-center"><i class="fas fa-chevron-left"></i></div>
-                                <ul class="page_nav d-flex flex-row">
-                                    <li><a href="#">1</a></li>
-                                    <li><a href="#">2</a></li>
-                                    <li><a href="#">3</a></li>
-                                    <li><a href="#">...</a></li>
-                                    <li><a href="#">21</a></li>
-                                </ul>
-                                <div class="page_next d-flex flex-column align-items-center justify-content-center"><i class="fas fa-chevron-right"></i></div>
-                            </div>
+    <div class="shop_page_nav d-flex flex-row">
+        <div class="page_prev d-flex flex-column align-items-center justify-content-center"><i class="fas fa-chevron-left"></i></div>
+        <ul class="page_nav d-flex flex-row">
+           
+            @Html.PagedListPager(Model.products, i => Url.Action("Products_Listing", "Product", new { i, search = Request.QueryString["search"] }))
+ 
+        </ul>
+        <div class="page_next d-flex flex-column align-items-center justify-content-center"><i class="fas fa-chevron-right"></i></div>
+    </div>
 
                         </div>
 
@@ -581,7 +420,7 @@
                     <div class="col-lg-3 footer_col">
                         <div class="footer_column footer_contact">
                             <div class="logo_container">
-                                <div class="logo"><a href="#">OneTech</a></div>
+                                <div class="logo"><a href='@Url.Action("Index", "Home")'>OneTech</a></div>
                             </div>
                             <div class="footer_title">Got Question? Call Us 24/7</div>
                             <div class="footer_phone">+38 068 005 3570</div>

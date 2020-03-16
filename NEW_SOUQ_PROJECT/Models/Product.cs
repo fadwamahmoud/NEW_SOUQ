@@ -28,7 +28,8 @@ namespace NEW_SOUQ_PROJECT.Models
         public virtual Category Category { get; set; }
         public virtual Brand Brand { get; set; }
         public virtual ApplicationUser User { get; set; }
-
+        //[Required]
+        //public HttpPostedFileBase Type { get; set; }
 
 
 

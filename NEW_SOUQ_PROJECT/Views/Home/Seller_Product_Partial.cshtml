@@ -14,11 +14,11 @@
 
             <div class="cart_item_price cart_info_col">
                 <div class="cart_item_title">Price</div>
-                <div class="cart_item_text" style="text-decoration:line-through">@Model.Price</div>
+                <div id="@Model.Price" class="cart_item_text">@Model.Price</div>
             </div>
             <div class="cart_item_price cart_info_col">
                 <div class="cart_item_title">Price after sale</div>
-                <div class="cart_item_text">@Model.PriceAfterSale</div>
+                <div id="@Model.PriceAfterSale" class="cart_item_text">@Model.PriceAfterSale</div>
             </div>
             <div class="cart_item_price cart_info_col">
                 <div class="cart_item_title">Category</div>
@@ -29,6 +29,28 @@
                 <div class="cart_item_text">@Model.Brand.Name</div>
             </div>
 
+            <a href="#" onclick='EditPrice("@Model.Id")' data-toggle="modal" data-target="#myModal">Edit Price</a>
+
+            <a  href="#" id="@Model.Id" class="delete-prompt">Delete</a>
+
         </div>
     </li>
 </ul>
+<script type="text/javascript">
+
+    var EditPrice = function (userId) {
+        var userId = userId;
+        var url = "/Product/Edit_Product?id=" + userId;
+            console.log(userId)
+
+            $("#myModalBodyDiv").load(url, function () {
+                $("#myModal").modal("show");
+
+            })
+
+    }
+    
+
+        
+</script>
+

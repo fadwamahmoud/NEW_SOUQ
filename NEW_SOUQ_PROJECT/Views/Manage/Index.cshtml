@@ -3,85 +3,316 @@
     ViewBag.Title = "Manage";
 }
 
-<h2>@ViewBag.Title.</h2>
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Shop</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="OneTech shop project">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<p class="text-success">@ViewBag.StatusMessage</p>
-<div>
-    <h4>Change your account settings</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>Password:</dt>
-        <dd>
-            [
-            @if (Model.HasPassword)
+
+    <link rel="stylesheet" type="text/css" href="~/Content/CSS/BootStrap/bootstrap.min.css">
+    <link href="~/Content/plugins/fontawesome-free-5.0.1/css/fontawesome-all.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="~/Content/plugins/OwlCarousel2-2.2.1/owl.carousel.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/plugins/OwlCarousel2-2.2.1/animate.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/plugins/slick-1.8.0/slick.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/CSS/main_styles.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/CSS/responsive.css">
+
+
+
+</head>
+
+<body>
+
+    <div class="super_container">
+
+        <!-- Header -->
+
+        <header class="header">
+
+            <!-- Top Bar -->
+
+            <div class="top_bar">
+                <div class="container">
+                    <div class="row">
+                        <div class="col d-flex flex-row">
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <div class="top_bar_contact_item">
+                                    <div class="top_bar_icon"><img src="~/Content/Images/phone.png" alt=""> </div>
+                                    @Html.ActionLink("Admin", "AdminPage", "Home")
+                                </div>
+                            }
+                            @if (User.IsInRole("Seller"))
+                            {
+                                <div class="top_bar_contact_item">
+                                    <div class="top_bar_icon">
+                                        <img src="~/Content/Images/user.png" alt="">
+                                    </div>@Html.ActionLink("Your Products", "SellerPage", "Home")
+                                </div>
+
+                            }
+
+
+                            <div class="top_bar_content ml-auto">
+
+                                <div class="top_bar_user">
+                                    @*<div class="user_icon"><img src="images/user.svg" alt=""></div>
+                                        <div><a href="#">Register</a></div>
+                                        <div><a href="#">Sign in</a></div>*@
+                                    @Html.Partial("_LoginPartial")
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Header Main -->
+
+            <div class="header_main">
+                <div class="container">
+                    <div class="row">
+
+                        <!-- Logo -->
+                        <div class="col-lg-2 col-sm-3 col-3 order-1">
+                            <div class="logo_container">
+                                <div class="logo"><a href="#">OneTech</a></div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+        </header>
+
+
+        <p class="text-success">@ViewBag.StatusMessage</p>
+        <div class="container fill_height">
+            <h2>@ViewBag.Title.</h2>
+
+            <hr />
+            <dl class="dl-horizontal">
+                <h4>Change your account settings</h4>
+
+                <dt>Password:</dt>
+                <dd>
+                    [
+                    @if (Model.HasPassword)
             {
-                @Html.ActionLink("Change your password", "ChangePassword")
-            }
-            else
-            {
-                @Html.ActionLink("Create", "SetPassword")
-            }
-            ]
-        </dd>
-        <dt>External Logins:</dt>
-        <dd>
-            @Model.Logins.Count [
-            @Html.ActionLink("Manage", "ManageLogins") ]
-        </dd>
-        @*
-            Phone Numbers can used as a second factor of verification in a two-factor authentication system.
-             
-             See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-                for details on setting up this ASP.NET application to support two-factor authentication using SMS.
-             
-             Uncomment the following block after you have set up two-factor authentication
-        *@
-        @*  
-            <dt>Phone Number:</dt>
-            <dd>
-                @(Model.PhoneNumber ?? "None")
-                @if (Model.PhoneNumber != null)
-                {
-                    <br />
-                    <text>[&nbsp;&nbsp;@Html.ActionLink("Change", "AddPhoneNumber")&nbsp;&nbsp;]</text>
-                    using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>[<input type="submit" value="Remove" class="btn-link" />]</text>
+                        @Html.ActionLink("Change your password", "ChangePassword")
                     }
-                }
-                else
-                {
-                    <text>[&nbsp;&nbsp;@Html.ActionLink("Add", "AddPhoneNumber")
-                }
-            </dd>
-        *@
-        <dt>Two-Factor Authentication:</dt>
-        <dd>
-            <p>
-                There are no two-factor authentication providers configured. See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-                for details on setting up this ASP.NET application to support two-factor authentication.
-            </p>
-            @*@if (Model.TwoFactor)
-                {
-                    using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    else
                     {
-                        @Html.AntiForgeryToken()
-                        <text>Enabled
-                        <input type="submit" value="Disable" class="btn btn-link" />
-                        </text>
+                        @Html.ActionLink("Create", "SetPassword")
                     }
-                }
-                else
-                {
-                    using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>Disabled
-                        <input type="submit" value="Enable" class="btn btn-link" />
-                        </text>
-                    }
-                }*@
-        </dd>
-    </dl>
-</div>
+                    ]
+                </dd>
+                <dt>External Logins:</dt>
+                <dd>
+                    @Model.Logins.Count [
+                    @Html.ActionLink("Manage", "ManageLogins") ]
+                </dd>
+                @*
+                    Phone Numbers can used as a second factor of verification in a two-factor authentication system.
+
+                     See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
+                        for details on setting up this ASP.NET application to support two-factor authentication using SMS.
+
+                     Uncomment the following block after you have set up two-factor authentication
+                *@
+                @*
+                    <dt>Phone Number:</dt>
+                    <dd>
+                        @(Model.PhoneNumber ?? "None")
+                        @if (Model.PhoneNumber != null)
+                        {
+                            <br />
+                            <text>[&nbsp;&nbsp;@Html.ActionLink("Change", "AddPhoneNumber")&nbsp;&nbsp;]</text>
+                            using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <text>[<input type="submit" value="Remove" class="btn-link" />]</text>
+                            }
+                        }
+                        else
+                        {
+                            <text>[&nbsp;&nbsp;@Html.ActionLink("Add", "AddPhoneNumber")
+                        }
+                    </dd>
+                *@
+                <dt>Two-Factor Authentication:</dt>
+                <dd>
+                    <p>
+                        There are no two-factor authentication providers configured. See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
+                        for details on setting up this ASP.NET application to support two-factor authentication.
+                    </p>
+                    @*@if (Model.TwoFactor)
+                        {
+                            using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <text>Enabled
+                                <input type="submit" value="Disable" class="btn btn-link" />
+                                </text>
+                            }
+                        }
+                        else
+                        {
+                            using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <text>Disabled
+                                <input type="submit" value="Enable" class="btn btn-link" />
+                                </text>
+                            }
+                        }*@
+                </dd>
+            </dl>
+        </div>
+        <!-- Footer -->
+
+        <footer class="footer">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-lg-3 footer_col">
+                        <div class="footer_column footer_contact">
+                            <div class="logo_container">
+                                <div class="logo"><a href="#">OneTech</a></div>
+                            </div>
+                            <div class="footer_title">Got Question? Call Us 24/7</div>
+                            <div class="footer_phone">+38 068 005 3570</div>
+                            <div class="footer_contact_text">
+                                <p>17 Princess Road, London</p>
+                                <p>Grester London NW18JR, UK</p>
+                            </div>
+                            <div class="footer_social">
+                                <ul>
+                                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-youtube"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-google"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-vimeo-v"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2 offset-lg-2">
+                        <div class="footer_column">
+                            <div class="footer_title">Find it Fast</div>
+                            <ul class="footer_list">
+                                <li><a href="#">Computers & Laptops</a></li>
+                                <li><a href="#">Cameras & Photos</a></li>
+                                <li><a href="#">Hardware</a></li>
+                                <li><a href="#">Smartphones & Tablets</a></li>
+                                <li><a href="#">TV & Audio</a></li>
+                            </ul>
+                            <div class="footer_subtitle">Gadgets</div>
+                            <ul class="footer_list">
+                                <li><a href="#">Car Electronics</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <div class="footer_column">
+                            <ul class="footer_list footer_list_2">
+                                <li><a href="#">Video Games & Consoles</a></li>
+                                <li><a href="#">Accessories</a></li>
+                                <li><a href="#">Cameras & Photos</a></li>
+                                <li><a href="#">Hardware</a></li>
+                                <li><a href="#">Computers & Laptops</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <div class="footer_column">
+                            <div class="footer_title">Customer Care</div>
+                            <ul class="footer_list">
+                                <li><a href="#">My Account</a></li>
+                                <li><a href="#">Order Tracking</a></li>
+                                <li><a href="#">Wish List</a></li>
+                                <li><a href="#">Customer Services</a></li>
+                                <li><a href="#">Returns / Exchange</a></li>
+                                <li><a href="#">FAQs</a></li>
+                                <li><a href="#">Product Support</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </footer>
+
+        <!-- Copyright -->
+
+        <div class="copyright">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+
+                        <div class="copyright_container d-flex flex-sm-row flex-column align-items-center justify-content-start">
+                            <div class="copyright_content">
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                Copyright &copy;
+                                <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            </div>
+                            <div class="logos ml-sm-auto">
+                                <ul class="logos_list">
+                                    <li><a href="#"><img src="images/logos_1.png" alt=""></a></li>
+                                    <li><a href="#"><img src="images/logos_2.png" alt=""></a></li>
+                                    <li><a href="#"><img src="images/logos_3.png" alt=""></a></li>
+                                    <li><a href="#"><img src="images/logos_4.png" alt=""></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="~/scripts/MyScripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Content/CSS/BootStrap/popper.js"></script>
+    <script src="~/Content/CSS/BootStrap/bootstrap.min.js"></script>
+    <script src="~/Content/plugins/greensock/TweenMax.min.js"></script>
+    <script src="~/Content/plugins/greensock/TimelineMax.min.js"></script>
+    <script src="~/Content/plugins/scrollmagic/ScrollMagic.min.js"></script>
+    <script src="~/Content/plugins/greensock/animation.gsap.min.js"></script>
+    <script src="~/Content/plugins/greensock/ScrollToPlugin.min.js"></script>
+    <script src="~/Content/plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+    <script src="~/Content/plugins/slick-1.8.0/slick.js"></script>
+    <script src="~/Content/plugins/easing/easing.js"></script>
+
+
+    <script src="~/scripts/MyScripts/custom.js"></script>
+
+</body>
+
+</html>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

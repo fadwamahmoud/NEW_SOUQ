@@ -1,18 +1,9 @@
-﻿
-@model List<Product>
+﻿@using NEW_SOUQ_PROJECT.Models;
+@*<h1>Your Cart</h1>
+    <br /><br /><br />*@
 
 @{
     Layout = null;
-
-    ViewBag.Title = "AdminPage";
-    AjaxOptions opts = new AjaxOptions
-    {
-        UpdateTargetId = "tableBody",
-        HttpMethod = "POST",
-        OnSuccess = "success()",
-        InsertionMode = InsertionMode.InsertAfter
-
-    };
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -54,7 +45,7 @@
                             @if (User.IsInRole("Admin"))
                             {
                             <div class="top_bar_contact_item">
-                                <div class="top_bar_icon"><img src="~/Content/Images/phone.png" alt=""> </div>
+                                <div class="top_bar_icon"><img src="images/phone.png" alt=""> </div>
                                 @Html.ActionLink("Admin", "AdminPage", "Home")
                             </div>
                             }
@@ -62,7 +53,7 @@
                             {
                             <div class="top_bar_contact_item">
                                 <div class="top_bar_icon">
-                                    <img src="~/Content/Images/mail.png" alt="">
+                                    <img src="images/mail.png" alt="">
                                 </div>@Html.ActionLink("Your Products", "SellerPage", "Home")
                             </div>
 
@@ -72,7 +63,7 @@
                             <div class="top_bar_content ml-auto">
 
                                 <div class="top_bar_user">
-                                    @*<div class="user_icon"><img src="~/Content/Images/user.svg" alt=""></div>
+                                    @*<div class="user_icon"><img src="images/user.svg" alt=""></div>
                                         <div><a href="#">Register</a></div>
                                         <div><a href="#">Sign in</a></div>*@
                                     @Html.Partial("_LoginPartial")
@@ -93,7 +84,7 @@
                         <!-- Logo -->
                         <div class="col-lg-2 col-sm-3 col-3 order-1">
                             <div class="logo_container">
-                                <div class="logo"><a href="#">OneTech</a></div>
+                                <div class="logo"><a href='@Url.Action("Index", "Home")'>OneTech</a></div>
                             </div>
                         </div>
 
@@ -114,75 +105,74 @@
                 <div class="row">
                     <div class="col-lg-10 offset-lg-1">
                         <div class="cart_container">
-                            <div class="cart_title">Your Shop</div>
+                            <div class="cart_title">Shopping Cart</div>
                             <div class="cart_items">
-                                <div id="tableBody">
-
-                                    @{
-                                        foreach (Product item in Model)
+                                <ul class="cart_list">
+                                    @if ((List<Cart>)Session["Cart"] != null)
+                                    {
+                                        foreach (var c in (List<Cart>)Session["Cart"])
                                         {
-                                            Html.RenderPartial("Seller_Product_Partial", item);
+                                                <li class="cart_item clearfix">
+                                                    <div class="cart_item_image"><img src=@c.Product.Image alt=""></div>
+                                                    <div class="cart_item_info d-flex flex-md-row flex-column justify-content-between">
+                                                        <div class="cart_item_name cart_info_col">
+                                                            <div class="cart_item_title">Name</div>
+                                                            <div class="cart_item_text">@c.Product.Name</div>
+                                                        </div>
+                                                        
+                                                        <div class="cart_item_quantity cart_info_col">
+                                                            <div class="cart_item_title">Quantity</div>
+                                                            <div class="cart_item_text">@c.Quantity</div>
+                                                        </div>
+                                                        <div class="cart_item_price cart_info_col">
+                                                            <div class="cart_item_title">Price</div>
+                                                            <div class="cart_item_text">$@c.Product.PriceAfterSale</div>
+                                                        </div>
+                                                        <div class="cart_item_total cart_info_col">
+                                                            <div class="cart_item_title">SubTotal</div>
+                                                            <div class="cart_item_text">$@(String.Format("{0:N0}", c.Product.PriceAfterSale * c.Quantity))</div>
+                                                        </div>
+                                                        <div class="cart_item_total cart_info_col">
+                                                            <div class="cart_item_title"></div>
+                                                            <div class="cart_item_text">
+                                                                <button class="button cart_button_clear" onclick="window.location.href = '/Product/orderNow/@c.Product.Id ';">Add One</button>
+
+                                                                <button class="button cart_button_clear" onclick="window.location.href = '/Product/removeone/@c.Product.Id';">Remove</button>
+
+                                                            </div>
+
+                                                            </div>
+                                                        
+                                                    </div>
+                                                </li>
                                         }
                                     }
-                                </div>
-
-                                
+                                </ul>
                             </div>
 
+                            <!-- Order Total -->
+                            <div class="order_total">
+                                <div class="order_total_content text-md-right">
+                                    <div class="order_total_title">Order Total:</div>
+                                    <div class="order_total_amount">@{
+                                        List<Cart> cart = (List<Cart>)Session["cart"];
+                                        var total = cart.Sum(c => c.Product.PriceAfterSale * c.Quantity);
+                                    }
+                                    @total</div>
+                                    
+                                </div>
+                            </div>
 
                             <div class="cart_buttons">
-
-                                @Html.ActionLink("+Add New Product", "Create_Product","Product", null, new { @class = "button cart_button_clear" })
+                                @Html.ActionLink("Continue Shopping", "Products_Listing", "Product",new { @class="button cart_button_clear"})
+                                @Html.ActionLink("Check Out", "Login", "Account", new { @class = "button cart_button_clear" })
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Modal -->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                @Ajax.BeginForm("Edit_Product", null, opts, new { id = "myform" })
-
-
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="myModalLabel">Edit Role</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body" id="myModalBodyDiv">
-
-
-                    </div>
-
-                    @*<div class="modal-footer">
-                <input type="submit" value="Save" id="btnSubmit" class="btn btn-default" />
-
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
-            </div>*@
-                </div>
-                
-
-
-
-            </div>
-                    
-
-
-        </div>
-
-                    @*<div class="modal-footer">
-                        <input type="submit" value="Save" id="btnSubmit" class="btn btn-default" />
-
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
-                    </div>*@
-        @*</div>*@
-            
-
+        
 
         <!-- Footer -->
 
@@ -277,10 +267,10 @@
                             </div>
                             <div class="logos ml-sm-auto">
                                 <ul class="logos_list">
-                                    <li><a href="#"><img src="~/Content/Images/logos_1.png" alt=""></a></li>
-                                    <li><a href="#"><img src="~/Content/Images/logos_2.png" alt=""></a></li>
-                                    <li><a href="#"><img src="~/Content/Images/logos_3.png" alt=""></a></li>
-                                    <li><a href="#"><img src="~/Content/Images/logos_4.png" alt=""></a></li>
+                                    <li><a href="#"><img src="images/logos_1.png" alt=""></a></li>
+                                    <li><a href="#"><img src="images/logos_2.png" alt=""></a></li>
+                                    <li><a href="#"><img src="images/logos_3.png" alt=""></a></li>
+                                    <li><a href="#"><img src="images/logos_4.png" alt=""></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -305,43 +295,9 @@
 
 
     <script src="~/scripts/MyScripts/cart_custom.js"></script>
-    <script>
-        function success(){
-            console.log("asdfghjkl")
-            document.getElementById("form").reset();
-            $('#FormModal').modal('hide')
-
-        }
-
-        $(document).ready(function () {
-
-            var pryEmpId;
-            $('.delete-prompt').click(function () {
-                var confirmMessageBox = confirm('Are you sure you wish to delete this product ?');
-                if (confirmMessageBox) {
-                    pryEmpId = $(this).attr('id');
-                    if (pryEmpId != '') {
-                        $.ajax({
-                            url: '/Product/Delete_Product',
-                            data: { 'Id': pryEmpId },
-                            type: 'get',
-                            success: function (data) {
-                                if (data) {
-                                    location.reload();
-                                }
-                            }, error: function (err) {
-                                alert(err.statusText);
-                            }
-                        });
-                    }
-                }
-
-            });
-
-        });
-    </script>
-    
 
 </body>
 
 </html>
+
+
