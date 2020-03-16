@@ -45,7 +45,7 @@
                             @if (User.IsInRole("Admin"))
                             {
                             <div class="top_bar_contact_item">
-                                <div class="top_bar_icon"><img src="images/phone.png" alt=""> </div>
+                                <div class="top_bar_icon"><img src="~/Content/Images/user.png" alt=""> </div>
                                 @Html.ActionLink("Admin", "AdminPage", "Home")
                             </div>
                             }
@@ -53,7 +53,7 @@
                             {
                             <div class="top_bar_contact_item">
                                 <div class="top_bar_icon">
-                                    <img src="images/mail.png" alt="">
+                                    <img src="~/Content/Images/user.png" alt="">
                                 </div>@Html.ActionLink("Your Products", "SellerPage", "Home")
                             </div>
 
@@ -155,8 +155,13 @@
                                 <div class="order_total_content text-md-right">
                                     <div class="order_total_title">Order Total:</div>
                                     <div class="order_total_amount">@{
+
                                         List<Cart> cart = (List<Cart>)Session["cart"];
-                                        var total = cart.Sum(c => c.Product.PriceAfterSale * c.Quantity);
+                                        var total = 0;
+                                        if (cart != null) {
+                                             total = Convert.ToInt32(cart.Sum(c => c.Product.PriceAfterSale * c.Quantity));
+
+                                        }
                                     }
                                     @total</div>
                                     
@@ -165,7 +170,8 @@
 
                             <div class="cart_buttons">
                                 @Html.ActionLink("Continue Shopping", "Products_Listing", "Product",new { @class="button cart_button_clear"})
-                                @Html.ActionLink("Check Out", "Login", "Account", new { @class = "button cart_button_clear" })
+                                @*@Html.ActionLink("Check Out", "Login", "Account", new { @class = "button cart_button_clear" })*@
+                                <button href="#" class="button cart_button_clear"> Check Out</button>
                             </div>
                         </div>
                     </div>

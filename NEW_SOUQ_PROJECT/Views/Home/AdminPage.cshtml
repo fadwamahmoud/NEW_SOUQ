@@ -1,5 +1,7 @@
 ﻿@model AdminViewModel
 @{
+    Layout = null;
+
 
     ViewBag.Title = "AdminPage";
     AjaxOptions opts = new AjaxOptions
@@ -63,17 +65,19 @@
                             {
                                 <div class="top_bar_contact_item">
                                     <div class="top_bar_icon">
-                                        <img src="~/Content/Images/mail.png" alt="">
-                                    </div>@Html.ActionLink("Your Products", "SellerPage", "Home")
+                                        <img src="~/Content/Images/user.png" alt="">
+                                    </div>@Html.ActionLink("Your Products", "SellerPage")
                                 </div>
 
                             }
-                            
+
 
                             <div class="top_bar_content ml-auto">
-                                
+
                                 <div class="top_bar_user">
-                                   
+                                    @*<div class="user_icon"><img src="~/Content/Images/user.svg" alt=""></div>
+                                        <div><a href="#">Register</a></div>
+                                        <div><a href="#">Sign in</a></div>*@
                                     @Html.Partial("_LoginPartial")
 
                                 </div>
@@ -101,8 +105,10 @@
                             <div class="header_search">
                                 <div class="header_search_content">
                                     <div class="header_search_form_container">
-                                        <form action="#" class="header_search_form clearfix">
-                                            <input type="search" required="required" class="header_search_input" placeholder="Search for products...">
+                                        @using (Html.BeginForm("Products_Listing", "Product", FormMethod.Get, new { @class = "header_search_form clearfix" }))
+                                        {
+                                            @*Html.TextBox("search",, new { @class = "header_search_input" })*@
+                                            <input id="search" name="search" type="text" value="" required="required" class="header_search_input" placeholder="Search for products...">
                                             <div class="custom_dropdown">
                                                 <div class="custom_dropdown_list">
                                                     <span class="custom_dropdown_placeholder clc">All Categories</span>
@@ -124,16 +130,35 @@
                                                     </ul>
                                                 </div>
                                             </div>
-                                            <button type="submit" class="header_search_button trans_300" value="Submit"><img src="~/Content/~/Content/Images/search.png" alt=""></button>
-                                        </form>
+                                            <button type="submit" class="header_search_button trans_300" value="Submit"><img src="~/Content/Images/search.png" alt=""></button>
+                                                            }
                                     </div>
                                 </div>
                             </div>
                         </div>
 
+
+                        <!-- Cart -->
+                        <div class="col-lg-4 col-9 order-lg-3 order-2 text-lg-left text-right">
+                            <div class="wishlist_cart d-flex flex-row align-items-center justify-content-end">
+                                <div class="cart">
+                                    <div class="cart_container d-flex flex-row align-items-center justify-content-end">
+                                        <div class="cart_icon">
+                                            <img src="~/Content/Images/cart.png" alt='@Url.Action("Index_Shop", "Product")'>
+                                            <div class="cart_count"><span></span></div>
+                                        </div>
+                                        <div class="cart_content">
+                                            <div class="cart_text"><a href='@Url.Action("Index_Shop", "Product")'>Cart</a></div>
+                                            <div class="cart_price"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+
 
             <!-- Main Navigation -->
 
@@ -153,6 +178,9 @@
                                     </div>
 
                                     <ul class="cat_menu">
+                                        <li>
+                                            <a href='@Url.Action("Products_Listing", "Product")'>All Categories<i class="fas fa-chevron-right ml-auto"></i></a>
+                                        </li>
                                         @{
                                             foreach (Category c in Model.categories)
                                             {
@@ -287,105 +315,119 @@
 
 
 
+        <!-- Deals of the week -->
 
-        <!-- Featured -->
-        <div class="featured" style="margin-left:300px">
-            <div class="tabbed_container">
-                <div class="tabs">
-                    <ul class="clearfix">
-                        <li class="active">Users</li>
-                        <li>Requests</li>
-                    </ul>
-                    <div class="tabs_line"><span></span></div>
+        <div class="deals_featured">
+            <div class="container">
+                <div class="row">
+                    <div class="col d-flex flex-lg-row flex-column align-items-center justify-content-start">
+                        <!-- Featured -->
+                        <div class="featured" style="margin-left:300px">
+                            <div class="tabbed_container">
+                                <div class="tabs">
+                                    <ul class="clearfix">
+                                        <li class="active">Users</li>
+                                        <li>Requests</li>
+                                    </ul>
+                                    <div class="tabs_line"><span></span></div>
+                                </div>
+
+                                <!-- Product Panel -->
+                                <div class="product_panel panel active">
+
+                                    <table class="table">
+                                        <tr>
+                                            <th>
+                                                First Name
+                                            </th>
+                                            <th>
+                                                LastName
+                                            </th>
+                                            <th>
+                                                Roles
+                                            </th>
+                                            <th>email        </th>
+
+                                            <th>username        </th>
+                                            <th></th>
+                                        </tr>
+
+                                        @foreach (var item in Model.Users)
+                                        {
+                                            Html.RenderPartial("User_Partial", item);
+
+                                        }
+
+                                    </table>
+
+                                </div>
+
+                                <!-- Product Panel -->
+
+                                <div class="product_panel panel">
+                                    <table class="table" id="tableBody">
+                                        <tr>
+                                            <th>
+                                                User Id
+                                            </th>
+                                            <th>
+                                                Name
+                                            </th>
+                                            <th>
+                                                Type
+                                            </th>
+                                            <th></th>
+                                        </tr>
+
+                                        @foreach (var item in Model.Requests)
+                                        {
+                                            Html.RenderPartial("Requests_Partial", item);
+
+                                        }
+
+                                    </table>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
+
+                    </div>
                 </div>
-
-                <!-- Product Panel -->
-                <div class="product_panel panel active">
-
-                    <table class="table">
-                        <tr>
-                            <th>
-                                First Name
-                            </th>
-                            <th>
-                                LastName
-                            </th>
-                            <th>
-                                Roles
-                            </th>
-                            <th>email        </th>
-
-                            <th>username        </th>
-                            <th></th>
-                        </tr>
-
-                        @foreach (var item in Model.Users)
-                        {
-                            Html.RenderPartial("User_Partial", item);
-
-                        }
-
-                    </table>
-
-                </div>
-
-
-
-                <!-- Product Panel -->
-
-                <div class="product_panel panel">
-                    <table class="table" id="tableBody">
-                        <tr>
-                            <th>
-                                User Id
-                            </th>
-                            <th>
-                                Name
-                            </th>
-                            <th>
-                                Type
-                            </th>
-                            <th></th>
-                        </tr>
-
-                        @foreach (var item in Model.Requests)
-                        {
-                            Html.RenderPartial("Requests_Partial", item);
-
-                        }
-
-                    </table>
-
-                </div>
-
             </div>
         </div>
 
 
+
+
+
         <!-- Modal -->
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="myModalLabel">Edit Role</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body" id="myModalBodyDiv">
-                          
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="myModalLabel">Edit Role</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="myModalBodyDiv">
 
-                        </div>
-                        
-                        @*<div class="modal-footer">
+
+                    </div>
+
+                    @*<div class="modal-footer">
                             <input type="submit" value="Save" id="btnSubmit" class="btn btn-default" />
 
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
                         </div>*@
-                    </div>
                 </div>
             </div>
+        </div>
+
 
 
 
@@ -400,7 +442,7 @@
                     <div class="col-lg-3 footer_col">
                         <div class="footer_column footer_contact">
                             <div class="logo_container">
-                                <div class="logo"><a href="#">OneTech</a></div>
+                                <div class="logo"><a href='@Url.Action("Index", "Home")'>OneTech</a></div>
                             </div>
                             <div class="footer_title">Got Question? Call Us 24/7</div>
                             <div class="footer_phone">+38 068 005 3570</div>
@@ -512,7 +554,7 @@
 
 
     <script src="~/scripts/MyScripts/custom.js"></script>
-    
+
 </body>
 
 </html>

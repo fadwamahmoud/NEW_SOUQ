@@ -56,7 +56,7 @@
                             {
                                 <div class="top_bar_contact_item">
                                     <div class="top_bar_icon">
-                                        <img src="~/Content/Images/mail.png" alt="">
+                                        <img src="~/Content/Images/user.png" alt="">
                                     </div>@Html.ActionLink("Your Products", "SellerPage", "Home")
                                 </div>
 
@@ -87,7 +87,7 @@
                         <!-- Logo -->
                         <div class="col-lg-2 col-sm-3 col-3 order-1">
                             <div class="logo_container">
-                                <div class="logo"><a href="#">OneTech</a></div>
+                                <div class="logo"><a href='@Url.Action("Index", "Home")'>OneTech</a></div>
                             </div>
                         </div>
 
@@ -122,6 +122,23 @@
                                             </div>
                                             <button type="submit" class="header_search_button trans_300" value="Submit"><img src="~/Content/Images/search.png" alt=""></button>
                                         }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Cart -->
+                        <div class="col-lg-4 col-9 order-lg-3 order-2 text-lg-left text-right">
+                            <div class="wishlist_cart d-flex flex-row align-items-center justify-content-end">
+                                <div class="cart">
+                                    <div class="cart_container d-flex flex-row align-items-center justify-content-end">
+                                        <div class="cart_icon">
+                                            <img src="~/Content/Images/cart.png" alt='@Url.Action("Index_Shop", "Product")'>
+                                            <div class="cart_count"><span></span></div>
+                                        </div>
+                                        <div class="cart_content">
+                                            <div class="cart_text"><a href='@Url.Action("Index_Shop", "Product")'>Cart</a></div>
+                                            <div class="cart_price"></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

@@ -79,22 +79,22 @@ namespace NEW_SOUQ_PROJECT.Controllers
 
             
         }
-        public ActionResult SellerRequest(string userId)
-        {
+        //public ActionResult SellerRequest(string userId)
+        //{
 
-            Request request = new Request {
-                UserId = userId,
-                Name="seller",
-                Type="seller"
+        //    Request request = new Request {
+        //        UserId = userId,
+        //        Name="seller",
+        //        Type="seller"
 
 
-            };
-            ctx.Requests.Add(request);
-            ctx.SaveChanges();
-            ViewBag.Message = "Your request has been sent.";
+        //    };
+        //    ctx.Requests.Add(request);
+        //    ctx.SaveChanges();
+        //    ViewBag.Message = "Your request has been sent.";
 
-            return View();
-        }
+        //    return View();
+        //}
 
 
         public ActionResult UserPage()
@@ -200,7 +200,7 @@ namespace NEW_SOUQ_PROJECT.Controllers
             ctx.Requests.Add(newRequest);
             ctx.SaveChanges();
 
-            return View("SellerPage");
+            return RedirectToAction("SellerPage");
         }
         public ActionResult ApproveRequest(int id)
         {
@@ -213,8 +213,7 @@ namespace NEW_SOUQ_PROJECT.Controllers
                     
                 };
                 ctx.Categories.Add(category);
-                ctx.Requests.Remove(request);
-                ctx.SaveChanges();
+                
                 
             }
             else 
@@ -224,7 +223,10 @@ namespace NEW_SOUQ_PROJECT.Controllers
                     Name = request.Name
                 };
                 ctx.Brands.Add(brand);
+                
             }
+            ctx.Requests.Remove(request);
+            ctx.SaveChanges();
 
             return RedirectToAction("AdminPage");
 

@@ -35,7 +35,7 @@ namespace NEW_SOUQ_PROJECT.Controllers
 
             
         }
-        //essraa
+        [Authorize(Roles ="Seller")]
         [HttpGet]
         public ActionResult Create_Product()
         {
